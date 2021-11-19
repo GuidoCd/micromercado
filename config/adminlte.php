@@ -253,7 +253,17 @@ return [
             'submenu' => [
                 [
                     'text' => 'Listado de Usuarios',
-                    'url'  => '/usuarios/',
+                    'route'  => 'usuarios.index',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Productos',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Nacionalidades',
+                    'route'  => 'nacionalidades.index',
                 ],
             ],
         ],
