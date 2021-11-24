@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/Web/Usuarios/usuarios-route.php'));
+                ->group(base_path('routes/Web/Categorias/categorias-route.php'));
 
             Route::middleware('web')
                 ->namespace($this->namespace)
@@ -61,12 +61,15 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->namespace($this->namespace)
+                ->group(base_path('routes/Web/Productos/productos-route.php'));
+
+            Route::middleware('web')
+                ->namespace($this->namespace)
                 ->group(base_path('routes/Web/proveedores/proveedores-route.php'));
 
-            
-                Route::middleware('web')
+            Route::middleware('web')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/Web/Categorias/categorias-route.php'));
+                ->group(base_path('routes/Web/Usuarios/usuarios-route.php'));
             
         });
     }

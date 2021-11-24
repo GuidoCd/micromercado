@@ -265,6 +265,10 @@ return [
                     'text' => 'Listado de Nacionalidades',
                     'route'  => 'nacionalidades.index',
                 ],
+                [
+                    'text' => 'Listado de Prodcutos',
+                    'route'  => 'productos.index',
+                ],
             ],
         ],
         [
