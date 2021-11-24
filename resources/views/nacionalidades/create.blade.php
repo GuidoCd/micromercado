@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('nacionalidades.store') }}" method="post" id="form_create">
+                   <form action="{{ route('nacionalidades.store') }}" method="post" id="form_create">
                         @csrf
                         @include('nacionalidades.partials.form')
                         <div class="row mt-2">

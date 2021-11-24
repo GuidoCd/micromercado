@@ -267,6 +267,26 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Proveedores',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Proveedores',
+                    'route'  => 'proveedores.index',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Categorias',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Categorias',
+                    'route'  => 'categorias.index',
+                ],
+            ],
+        ],
     ],
 
     /*

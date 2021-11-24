@@ -25,12 +25,12 @@ class CompraController extends Controller
     }
 
     //vista de un recurso en especifico
-    public function show(Compra $usuario){
+    public function show( $usuario){
        
     }
 
     //formulario de act
-    public function edit(Compra $usuario){
+    public function edit( $usuario){
        
     }
 

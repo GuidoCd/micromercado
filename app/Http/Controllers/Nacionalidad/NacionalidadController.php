@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Nacionalidad\Nacionalidad;
 
+
 class NacionalidadController extends Controller
 {
     //Listado de los recusos

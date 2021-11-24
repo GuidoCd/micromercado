@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Nacionalidad\NacionalidadController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('nacionalidades')->name('nacionalidades.')->middleware(['auth'])->group(function () {
     
