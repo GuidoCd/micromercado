@@ -56,7 +56,7 @@
                                 </td>
                                 
                                 <td class="text-justify p-1 {{ $proveedor->estado_color }} ">
-                                    {{ $proveedor->estado }}
+                                    {{ $proveedor->estado_descripcion }}
                                 </td>
 
                                 <td class="text-center p-1 ">

@@ -18,10 +18,9 @@ class ProveedorController extends Controller
     public function index()
     {
         $prov = Proveedor::paginate(10);
+
         return view('proveedores.index',compact('prov'));
 
-        
-        
     }
 
     /**
@@ -82,13 +81,12 @@ class ProveedorController extends Controller
      */
     public function update(Request $request)
     {
-        $inputs =$request->all();
-        $proveedor=Proveedor::find($inputs['proveedor_id']);
-        $proveedor->update([
-            'nombre' => $inputs["nombre"],
-            'nombre_empresa' => $inputs["nombre_empresa"],
-            'telefono' => $inputs["telefono"]
-        ]);
+        $inputs = $request->all();
+
+        $proveedor = Proveedor::find($inputs['proveedor_id']);
+
+        $proveedor->update($inputs);
+
        return redirect()->route('proveedores.index')->with('success','Proveedor actualizado con éxito!');
 
     }
@@ -102,7 +100,9 @@ class ProveedorController extends Controller
     public function destroy(Request $request)
     {
             $usuario=Proveedor::find($request['proveedor_id']);
+
             $usuario->delete();
+            
             return redirect()->route('proveedores.index')->with('success','Proveedor elimando correctamente');
 
     }

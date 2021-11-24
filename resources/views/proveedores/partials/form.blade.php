@@ -11,23 +11,21 @@
         </label>
         <input type="text" class="form-control form-control-sm" name="nombre_empresa" id="nombre_empresa" onkeyup="verificarCampo(this);"  value="{{ isset($proveedor) ? $proveedor->nombre_empresa : '' }}">
     </div>
-
     <div class="col-md-3">
         <label for="telefono">
             Telefono
         </label>
         <input type="number" class="form-control form-control-sm" name="telefono" id="telefono" onkeyup="verificarCampo(this);" value="{{ isset($proveedor) ? $proveedor->telefono : '' }}">
     </div>
-    {{-- <div class="col-md-3">
-        <label for="email">
-            Contrase&ntilde;a:
-        </label>
-        <input type="password" class="form-control form-control-sm" name="password" id="password" onkeyup="verificarPassword(this);">
-    </div> --}}
-    {{-- <div class="col-md-3">
-        <label for="email">
-            Confirmar Contrase&ntilde;a:
-        </label>
-        <input type="password" class="form-control form-control-sm" name="password_confirm" id="password_confirm" onkeyup="verificarPasswordConfirm(this);">
-    </div> --}}
+    @if (isset($proveedor))
+        <div class="col-md-3">
+            <label for="estado">
+                Estado
+            </label>
+            <select name="estado" id="estado" class="form-control form-control-sm">
+                <option value="1" {{ $proveedor->estado == '1' ? 'selected' : '' }}>HABILITADO</option>
+                <option value="2" {{ $proveedor->estado == '2' ? 'selected' : '' }}>INHABILITADO</option>
+            </select>
+        </div>
+    @endif
 </div>

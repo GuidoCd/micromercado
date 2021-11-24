@@ -18,16 +18,21 @@ class Proveedor extends Model
         'telefono'
     ];
 
-   /* public function getEstadoDescripcionAttribute(){
+    public function getEstadoDescripcionAttribute(){
         $estados = ['HABILITADO','INHABILITADO'];
         return $estados[$this->attributes['estado'] - 1];
     } 
+
+    public function getEstadoColorAttribute(){
+        $estados = ['badge bg-success','badge bg-danger'];
+        return $estados[$this->attributes['estado'] - 1];
+    }
 
     public function setNombreAttribute($value){
 
         if($value != null)
             $this->attributes['nombre'] = \mb_strtoupper($value);
 
-    }*/
+    }
     
 }
