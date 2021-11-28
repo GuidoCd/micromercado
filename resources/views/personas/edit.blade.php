@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuarios | Creación')
+@section('title', 'Micromercado | Personas')
 
 @section('content')
     <div class="row">
@@ -8,21 +8,31 @@
             <div class="card card-custom">
                 <div class="card-header bg-secondary">
                     <div class="card-title">
-                        Edicion de Usuario
+                        Edicion de Persona
                     </div>
-                    <a href="{{ route('usuarios.index') }}" class="btn btn-sm btn-primary float-right">
+                    <a href="{{ route('personas.index') }}" class="btn btn-sm btn-primary float-right">
                         <span>
                             <i class="fa fa-reply"></i>
                         </span>
                         &nbsp;
                     </a>
                 </div>
+            </div>
+            <hr>
+        </div>
+        <div class="col-md-12">
+            <div class="card card-custom">
+                <div class="card-header bg-secondary">
+                    <div class="card-title">
+                        Editar Persona
+                    </div>
+                </div>
                 <div class="card-body">
-                    <form action="{{ route('usuarios.update') }}" id="form_edit" method="post">
-                        <input type="hidden" value="{{ $usuario->id }}" name="usuario_id">
+                    <form action="{{route('personas.update',$persona)}}" method="post" id='form_edit'>
+                        {{-- <input type="hidden" value="{{$persona->id}}" name="persona_id"> --}}
                         @csrf
                         @method('PUT')
-                        @include('usuarios.partials.form')
+                        @include('personas.partials.form')
                         <div class="row mt-2">
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-sm btn-success float-right" onclick="actualizar()">
@@ -36,13 +46,14 @@
                         </div>
                     </form>
                 </div>
+             
             </div>
         </div>
     </div>
 @stop
 
 @section('css')
-
+    
 @stop
 
 @section('js')
@@ -59,27 +70,30 @@
             }
         }
 
-       
-
-       
-
         function validateInputs(){
             var sw = true;
 
-            if(!verificarCampo(document.getElementById('name'))){
+            if(!verificarCampo(document.getElementById('nombre'))){
                 sw = false;
             }
 
-            if(!verificarCampo(document.getElementById('email'))){
+            if(!verificarCampo(document.getElementById('ci'))){
                 sw = false;
             }
-            if(!verificarCampo(document.getElementById('password'))){
+            if(!verificarCampo(document.getElementById('fecha_nacimiento'))){
                 sw = false;
             }
-            if(!verificarCampo(document.getElementById('password_confirm'))){
+
+            if(!verificarCampo(document.getElementById('direccion'))){
                 sw = false;
             }
-           
+            if(!verificarCampo(document.getElementById('telefono'))){
+                sw = false;
+            }
+
+            if(!verificarCampo(document.getElementById('sexo'))){
+                sw = false;
+            }
             return sw;
         }
 
@@ -87,15 +101,10 @@
             if(validateInputs()){
                 $("#form_edit").submit();
             }else{
-                toastr.error('Por favor rellene los campos obligatorios.', 'Ups!');
+                toastr.error('Por favor rellene los campos obligatorios.', 'Ups!')
             }
         }
-        function verificarPasswordConfirm(inputs){
-            return true;
 
-        }
-        function verificarPassword(input){
-            return true;
-        }
+
     </script>
 @stop
