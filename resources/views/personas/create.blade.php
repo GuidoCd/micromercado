@@ -62,6 +62,17 @@
 
 @section('js')
     <script>
+
+        function toggleInputs(value){
+            if (value == "2") {
+                $(".email-view").hide();
+                $(".auxiliar-view").show();
+            }else{
+                $(".auxiliar-view").hide();
+                $(".email-view").show();
+            }
+        }
+
         function guardar(){
             if(validateInputs()){
                 $("#form_create").submit();
@@ -73,6 +84,11 @@
         }
 
         function verificarCampo(input){
+
+            if(input.id == 'tipo'){
+                toggleInputs(input.value);
+            }
+
             if(input.value == ""){
                 $("#" + input.id).removeClass("is-valid");
                 $("#" + input.id).addClass("is-invalid");
@@ -105,9 +121,10 @@
                 sw = false;
             }
 
-            if(!verificarCampo(document.getElementById('sexo'))){
-                sw = false;
-            }
+            var masculino = document.getElementById('masculino');
+            var femenino = document.getElementById('femenino');
+
+            console.log(masculino);
             return sw;
         }
         

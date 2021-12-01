@@ -5,6 +5,8 @@ namespace App\Models\Persona;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Persona extends Model
 {
     use HasFactory;
@@ -19,28 +21,51 @@ class Persona extends Model
         'telefono',
         'estado',
         'tipo',
-        'nit',
     ];
 
+    const EMPLEADO = 1;
+
+    const CLIENTE = 2;
+
     public function getEstadoDescripcionAttribute(){
+
         $estados=['HABILITADO','DESHABILITADO'];
-        return $estados[$this->estado -1 ];
+
+        return $estados[$this->attributes['estado'] -1 ];
 
     }
+
+    public function getFechaNacimientoAttribute(){
+
+        return Carbon::parse($this->attributes['fecha_nacimiento'])->format('d/m/Y');
+
+    }
+
     public function getEstadoColorAttribute(){
+
             $colores=['badge bg-success','badge bg-danger'];
-            return $colores[$this->estado - 1];
+
+            return $colores[$this->attributes['estado'] - 1];
 
     }
 
     public function getTipoPersonaAttribute(){
+
             $tipos=['EMPLEADO','CLIENTE'];
-            return $tipos[$this->tipo - 1];
+
+            return $tipos[$this->attributes['tipo'] - 1];
+
     }
 
     public function setNombreAttribute($nomb){
 
         $this->attributes['nombre']=\mb_strtoupper($nomb);
+
+    }
+
+    public function setDireccionAttribute($direccion){
+
+        $this->attributes['direccion']=\mb_strtoupper($direccion);
 
     }
     

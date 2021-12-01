@@ -36,7 +36,7 @@
                                 <th>Nombre</th>
                                 <th>Ci</th>
                                 <th>Sexo</th>
-                                <th>Fecha_Nacimiento</th>
+                                <th>Fecha Nacimiento</th>
                                 <th>Direccion</th>
                                 <th>Telefono</th>
                                 <th>Tipo</th>

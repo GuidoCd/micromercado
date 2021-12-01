@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Personas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Persona\Persona;
+use App\Models\Auxiliar\Auxiliar;
+use App\Models\User;
 
 class PersonasController extends Controller
 {
@@ -15,7 +17,7 @@ class PersonasController extends Controller
      */
     public function index()
     {
-        $personas=Persona::paginate(10);
+        $personas = Persona::paginate(10);
         return view('personas.index',compact('personas'));
     }
 
@@ -37,9 +39,32 @@ class PersonasController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs=$request->all();
-        $persona=Persona::create($inputs);
-        return redirect()->route('personas.index')->with('success','persona creada con exito');
+        $inputs = $request->all();
+        
+        try {
+
+            $persona = Persona::create($inputs);
+
+            if($persona->tipo == Persona::CLIENTE){
+
+                $inputs['persona_id'] = $persona->id;
+
+                $auxiliar = Auxiliar::create($inputs);
+
+            }else{
+
+                $this->crearUsuario($persona, $inputs['email']);
+                
+            }
+
+            return redirect()->route('personas.index')->with('success','persona creada con exito');   
+
+        } catch (\Throwable $th) {
+
+            return redirect()->back()->withInput()->with('error',$th->getMessage());
+
+        }
+        
     }
 
     /**
@@ -73,7 +98,7 @@ class PersonasController extends Controller
      */
     public function update(Request $request,Persona $persona)
     {
-            $inputs=$request->all();
+            $inputs = $request->all();
             //dd($inputs,$persona);
             $persona->update([
                  'nombre'=>$inputs['nombre'],
@@ -97,11 +122,33 @@ class PersonasController extends Controller
      */
     public function destroy(Request $request)
     {
-            $inputs=$request->all();
-            $id=$inputs['persona_id'];
-            $usuario=Persona::find($id);
+            $inputs = $request->all();
+            $id = $inputs['persona_id'];
+            $usuario = Persona::find($id);
 
             $usuario->delete();
             return redirect()->route('personas.index')->with('success','usuarios elimanado con exito');
+    }
+
+    private function crearUsuario($persona, $email){
+
+        $existe = User::where('email',$email)->first();
+
+        if($existe != null){
+
+            throw new \Exception('Ya existe un usuario con el email: ' . $email);
+
+        }else{
+
+            $user = User::create([
+                'name' => $persona->nombre,
+                'password' => \bcrypt('123456'),
+                'email' => $email
+            ]);
+
+            return $user;
+
+        }
+
     }
 }
