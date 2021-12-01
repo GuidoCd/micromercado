@@ -8,6 +8,8 @@ use App\Models\Persona\Persona;
 use App\Models\Auxiliar\Auxiliar;
 use App\Models\User;
 
+use DB;
+
 class PersonasController extends Controller
 {
     /**
@@ -43,21 +45,27 @@ class PersonasController extends Controller
         
         try {
 
-            $persona = Persona::create($inputs);
-
-            if($persona->tipo == Persona::CLIENTE){
-
-                $inputs['persona_id'] = $persona->id;
-
-                $auxiliar = Auxiliar::create($inputs);
-
-            }else{
-
-                $this->crearUsuario($persona, $inputs['email']);
+            
+            DB::transaction(function () use ($inputs) {
                 
-            }
+                $persona = Persona::create($inputs);
+    
+                if($persona->tipo == Persona::CLIENTE){
+    
+                    $inputs['persona_id'] = $persona->id;
+    
+                    $auxiliar = Auxiliar::create($inputs);
+    
+                }else{
+    
+                    $this->crearUsuario($persona, $inputs['email']);
+                    
+                }
+    
+                return redirect()->route('personas.index')->with('success','persona creada con exito');
 
-            return redirect()->route('personas.index')->with('success','persona creada con exito');   
+            });
+
 
         } catch (\Throwable $th) {
 
