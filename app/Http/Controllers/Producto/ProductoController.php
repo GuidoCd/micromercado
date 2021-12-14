@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto\Producto;
 use App\Models\Categoria\Categoria;
 use App\Models\Nacionalidad\Nacionalidad;
+use App\Models\Unidad\Unidad;
 
 class ProductoController extends Controller
 {
@@ -27,14 +28,11 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $categorias = Categoria::get();
-
         $nacionalidades = Nacionalidad::get();
-
-        return view('productos.create',\compact('categorias','nacionalidades'));
-
+        $unidades = Unidad::get();
+        return view('productos.create',\compact('categorias','nacionalidades','unidades'));
     }
 
     /**
@@ -43,16 +41,11 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $inputs = $request->all();
-
         $codigo = $this->generarCodigo();
-
         $inputs['codigo'] = $codigo;
-
         $producto = Producto::create($inputs);
-
         return redirect()->route('productos.index')->with('success','Producto Creado con éxito!');
     }
 
@@ -62,8 +55,7 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
-    {
+    public function show(Producto $producto){
         return view('productos.show',compact('producto'));
     }
 
@@ -73,13 +65,11 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
-    {
+    public function edit(Producto $producto){
         $categorias = Categoria::get();
-
         $nacionalidades = Nacionalidad::get();
-
-        return view('productos.edit',compact('producto','categorias','nacionalidades'));
+        $unidades = Unidad::get();
+        return view('productos.edit',compact('producto','categorias','nacionalidades','unidades'));
     }
 
     /**
@@ -89,14 +79,10 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
-    {
+    public function update(Request $request, Producto $producto){
         $inputs = $request->except(['codigo']);
-
         $producto->update($inputs);
-
         return redirect()->route('productos.index')->with('success','Producto Actualizado con éxito!');
-
     }
 
     /**
@@ -112,11 +98,9 @@ class ProductoController extends Controller
 
     private function generarCodigo(){
         $codigo = "P-";
-
         $nro = Producto::get()->count() + 1;
-        
         $codigo = $codigo . \str_pad($nro,4,'0',STR_PAD_LEFT);
-
         return $codigo;
     }
+    
 }

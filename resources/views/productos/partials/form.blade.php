@@ -14,6 +14,23 @@
         <input type="text" class="form-control form-control-sm text-uppercase" name="nombre" id="nombre" onkeyup="verificarNombre()" value="{{ isset($producto) ? $producto->nombre : '' }}">
     </div>
     <div class="col-md-3">
+        <label for="unidad_id">Unidad</label>
+        <select name="unidad_id" id="unidad_id" class="form-control form-control-sm">
+            <option value="">-</option>
+            @foreach ($unidades as $unidad)
+                @isset($producto)
+                    @if ($producto->unidad_id == $unidad->id)
+                        <option value="{{ $unidad->id }}" selected>{{ $unidad->nombre }}</option>    
+                    @else
+                        <option value="{{ $unidad->id }}">{{ $unidad->nombre }}</option>    
+                    @endif
+                @else
+                    <option value="{{ $unidad->id }}">{{ $unidad->nombre }}</option>
+                @endisset
+            @endforeach
+        </select>
+    </div>
+    <div class="col-md-3">
         <label for="costo">
             Costo:
         </label>

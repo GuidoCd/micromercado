@@ -54,7 +54,7 @@
                                         {{ $producto->categoria != null ? $producto->categoria->nombre : 'N/A' }}
                                     </td>
                                     <td class="text-justify p-1">
-                                        {{ $producto->nacionalidad->nombre != null ? $producto->nacionalidad->nombre : 'N/A' }}
+                                        {{ $producto->nacionalidad != null ? $producto->nacionalidad->nombre : 'N/A' }}
                                     </td>
                                     <td class="text-center p-1">
                                         <a href="{{ route('productos.show',$producto->id) }}" class="btn btn-sm btn-info">

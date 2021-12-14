@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Categoria\Categoria;
 use App\Models\Nacionalidad\Nacionalidad;
+use App\Models\Unidad\Unidad;
 
 class Producto extends Model
 {
@@ -17,6 +18,7 @@ class Producto extends Model
     protected $fillable = [
         'codigo',
         'nombre',
+        'unidad_id',
         'costo',
         'precio',
         'fecha_vencimiento',
@@ -32,6 +34,10 @@ class Producto extends Model
 
     public function nacionalidad(){
         return $this->hasOne(Nacionalidad::class,'id','nacionalidad_id');
+    }
+
+    public function unidad(){
+        return $this->hasOne(Unidad::class,'id','unidad_id');
     }
     
 }

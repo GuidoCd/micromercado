@@ -258,6 +258,16 @@ return [
             ],
         ],
         [
+            'text'    => 'Compras',
+            'icon'    => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Compras',
+                    'route'  => 'compras.index',
+                ],
+            ],
+        ],
+        [
             'text'    => 'Productos',
             'icon'    => 'fas fa-fw fa-product',
             'submenu' => [
