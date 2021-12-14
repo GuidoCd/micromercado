@@ -291,6 +291,16 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Personas',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Personas',
+                    'route'  => 'personas.index',
+                ],
+            ],
+        ],
     ],
 
     /*

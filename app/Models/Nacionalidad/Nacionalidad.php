@@ -17,8 +17,11 @@ class Nacionalidad extends Model
     ];
 
     public function getEstadoDescripcionAttribute(){
+
         $estados = ['HABILITADO','INHABILITADO'];
+
         return $estados[$this->attributes['estado'] - 1];
+        
     } 
 
     public function setNombreAttribute($value){
