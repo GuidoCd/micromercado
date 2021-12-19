@@ -61,7 +61,7 @@ Detalle de Compra
                 </thead>
                 <tbody id="tabla_detalle">
                     <tr class="fila-detalle-0">
-
+                            
                     </tr>
                 </tbody>
             </table>

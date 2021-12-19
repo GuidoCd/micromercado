@@ -268,6 +268,16 @@ return [
             ],
         ],
         [
+            'text'    => 'Ventas',
+            'icon'    => 'fas fa-fw fa-ususes',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Ventas',
+                    'route'  => 'ventas.index',
+                ],
+            ],
+        ],
+        [
             'text'    => 'Productos',
             'icon'    => 'fas fa-fw fa-product',
             'submenu' => [

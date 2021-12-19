@@ -43,6 +43,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request){
         $inputs = $request->all();
+
         $codigo = $this->generarCodigo();
         $inputs['codigo'] = $codigo;
         $producto = Producto::create($inputs);

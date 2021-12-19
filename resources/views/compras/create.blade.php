@@ -13,8 +13,8 @@
                     <a href="{{ route('compras.index') }}" class="btn btn-sm btn-primary float-right">
                         <span>
                             <i class="fa fa-reply"></i>
-                        </span>
-                        &nbsp;
+                         &nbsp;</span>
+                       
                     </a>
                 </div>
                 <div class="card-body">
