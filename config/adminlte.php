@@ -321,6 +321,36 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Baja-Produtos',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Notas de Bajas',
+                    'route'  => 'personas.index',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Roles',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Tipos de Roles',
+                    'route'  => 'roles.index',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Permisos',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Tipos de Permisos',
+                    'route'  => 'permisos.index',
+                ],
+            ],
+        ],
     ],
 
     /*

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 use App\Models\User;
 
@@ -17,7 +18,8 @@ class UsuarioController extends Controller
 
     //Formulario de creacion
     public function create(){
-        return view('usuarios.create');
+        $roles = Role::get();
+        return view('usuarios.create',compact('roles'));
     }
 
     //guardado del formulario

@@ -23,4 +23,15 @@
         </label>
         <input type="password" class="form-control form-control-sm" name="password_confirm" id="password_confirm" onkeyup="verificarPasswordConfirm(this);">
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="rol">Rol:</label>
+            <select name="rol" id="rol" class="form form-control-sm">
+                <option value="">-</option>
+                    @foreach($roles as $rol)
+                        <option value="{{$rol->id}}">{{$rol->name}}</option>
+                    @endforeach
+            </select>
+        </div>
+    </div>
 </div>
