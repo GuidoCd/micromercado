@@ -19,6 +19,27 @@
         
         </select>
     </div>
+    <div class="col-md-3 email-view" >
+        <label for="role_id">
+            Cargo:
+        </label>
+        <select name="role_id" id="role_id" class="form-control form-control-sm">
+            <option value="">-</option>
+                @if(isset($persona))
+                    @foreach($roles as $role)
+                        @if ($user != null && $role->id  == $user->role_id)
+                            <option value="{{ $role->id }}" selected >{{ $role->name }}</option>
+                        @else
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endif
+                    @endforeach
+                @else
+                    @foreach($roles as $role)
+                        <option value="{{ $role->id }}" >{{ $role->name }}</option>
+                    @endforeach
+                @endif
+        </select>
+    </div>
     <div class="col-md-3">
         <label for="nombre">
             Nombre:

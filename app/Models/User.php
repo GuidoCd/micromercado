@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
 
 
 class User extends Authenticatable
@@ -30,7 +31,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'persona_id',
+        'role_id'
     ];
+
+    public function role(){
+        return $this->hasOne(Role::class,'id','role_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Persona\Persona;
 use App\Models\Auxiliar\Auxiliar;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 use DB;
+use Auth;
 
 class PersonasController extends Controller
 {
@@ -30,7 +32,8 @@ class PersonasController extends Controller
      */
     public function create()
     {
-        return view('personas.create');
+        $roles = Role::get();
+        return view('personas.create',compact('roles'));
     }
 
     /**
@@ -42,37 +45,20 @@ class PersonasController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        
         try {
-
-            
-            DB::transaction(function () use ($inputs) {
-                
+            DB::transaction(function () use ($inputs) {   
                 $persona = Persona::create($inputs);
-    
                 if($persona->tipo == Persona::CLIENTE){
-    
                     $inputs['persona_id'] = $persona->id;
-    
                     $auxiliar = Auxiliar::create($inputs);
-    
                 }else{
-    
-                    $this->crearUsuario($persona, $inputs['email']);
-                    
+                    $this->crearUsuario($persona, $inputs['email'], $inputs['role_id']);
                 }
-    
-                return redirect()->route('personas.index')->with('success','persona creada con exito');
-
             });
-
-
+            return redirect()->route('personas.index')->with('success','persona creada con exito');
         } catch (\Throwable $th) {
-
             return redirect()->back()->withInput()->with('error',$th->getMessage());
-
         }
-        
     }
 
     /**
@@ -94,7 +80,9 @@ class PersonasController extends Controller
      */
     public function edit(Persona $persona)
     {
-        return view('personas.edit',compact('persona'));
+        $roles = Role::get();
+        $user = User::where('persona_id',$persona->id)->first();
+        return view('personas.edit',compact('persona','roles','user'));
     }
 
     /**
@@ -107,7 +95,6 @@ class PersonasController extends Controller
     public function update(Request $request,Persona $persona)
     {
             $inputs = $request->all();
-            //dd($inputs,$persona);
             $persona->update([
                  'nombre'=>$inputs['nombre'],
                  'ci'=>$inputs['ci'],
@@ -118,8 +105,31 @@ class PersonasController extends Controller
                  'tipo'=>$inputs['tipo'],
                  'estado'=>$inputs['estado'],
              ]);
-              
-             return redirect()->route('personas.index')->with('success','Persona Editada correctamente');
+             if($persona->tipo == Persona::EMPLEADO){
+                $user = User::where('persona_id',$persona->id)->first();
+                if($user == null){
+                    $this->crearUsuario($persona, $inputs['email'], $inputs['role_id']);
+                }else{
+                    $user->update([
+                        'email' => $inputs['email'],
+                        'role_id' => $inputs['role_id'],
+                    ]);
+                }
+             }else if($persona->tipo == Persona::CLIENTE){
+                $auxiliar = Auxiliar::where('persona_id',$persona->id)->first();
+                if($auxiliar == null){
+                    Auxiliar::create([
+                        'nit' => $inputs['nit'],
+                        'razon_social' => $inputs['razon_social'],
+                    ]);
+                }else{
+                    $auxiliar->update([
+                        'nit' => $inputs['nit'],
+                        'razon_social' => $inputs['razon_social'],
+                    ]);
+                }
+             }
+             return redirect()->route('personas.index')->with('success','Persona actualizada correctamente');
     }
 
     /**
@@ -138,25 +148,22 @@ class PersonasController extends Controller
             return redirect()->route('personas.index')->with('success','usuarios elimanado con exito');
     }
 
-    private function crearUsuario($persona, $email){
-
+    private function crearUsuario($persona, $email, $role_id){
         $existe = User::where('email',$email)->first();
-
         if($existe != null){
-
             throw new \Exception('Ya existe un usuario con el email: ' . $email);
-
         }else{
-
+            $role = Role::find($role_id);
             $user = User::create([
                 'name' => $persona->nombre,
                 'password' => \bcrypt('123456'),
-                'email' => $email
+                'email' => $email,
+                'role_id' => $role_id,
+                'persona_id' => $persona->id
             ]);
 
+            $user->assignRole($role->name);
             return $user;
-
         }
-
     }
 }

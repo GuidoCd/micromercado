@@ -70,6 +70,16 @@
             }
         }
 
+        function verificarSexo(){
+            var checkFemenino = document.getElementById("femenino");
+            var checkMasculino = document.getElementById("masculino");
+            if(!checkFemenino.checked && !checkMasculino.checked){
+                return false;
+            }else{
+                return true;
+            }
+        }
+
         function validateInputs(){
             var sw = true;
 
@@ -91,7 +101,7 @@
                 sw = false;
             }
 
-            if(!verificarCampo(document.getElementById('sexo'))){
+            if(!verificarSexo()){
                 sw = false;
             }
             return sw;

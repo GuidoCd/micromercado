@@ -34,6 +34,7 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Cargo</th>
                                 <th>E-Mail.</th>
                                 <th>Estado</th>
                                 <th colspan="3">Opciones</th> 
@@ -44,6 +45,9 @@
                                 <tr>
                                     <td class="text-justify p-1">
                                         {{ $usuario->name }}
+                                    </td>
+                                    <td class="text-justify p-1">
+                                        {{ $usuario->role != null ? $usuario->role->name : '' }}
                                     </td>
                                     <td class="text-justify p-1">
                                         {{ $usuario->email }}
