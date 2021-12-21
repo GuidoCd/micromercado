@@ -34,7 +34,6 @@
                         <thead>
                             <tr>
                                 <th>Nombre:</th>
-                                <th>Guard_name</th>
                                 <th colspan="3">Opciones</th> 
                             </tr>
                         </thead>
@@ -43,9 +42,6 @@
                                 <tr>
                                     <td class="text-justify p-1">
                                         {{ $rol->name }}
-                                    </td>
-                                    <td class="text-justify p-1">
-                                        {{ $rol->guard_name }}
                                     </td>
                                     
                                     <td class="text-center p-1">

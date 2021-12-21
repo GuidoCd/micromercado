@@ -17,7 +17,6 @@ class DetalleVenta extends Model
         'sub_total',
         'producto_id',
         'venta_id',
-
     ];
 
     public function relacionProducto(){
