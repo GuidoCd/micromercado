@@ -87,29 +87,29 @@
             var importe=cantidad*precio;
             subTotales.push(importe);
             var fila="<tr class='fila-detalle-"+index+"'>";
-                        fila +="<td >";
-                            fila += item;
-                            fila += "<input type='hidden' name='product_id[]' value='" + vector[0] + "'>"
-                        fila +="</td>";
+                            fila +="<td>";
+                                fila += item;
+                                fila += "<input type='hidden' name='product_id[]' value='"+ vector[0]+"'>"
+                            fila +="</td>";
 
-                        fila +="<td >";
-                            fila += cantidad;
-                            fila += "<input type='hidden' name='cantidad[]' value='" + cantidad + "'>"
-                        fila +="</td>";
+                            fila +="<td >";
+                                fila += cantidad;
+                                fila += "<input type='hidden' name='cantidad[]' value='"+ cantidad+"'>"
+                            fila +="</td>";
 
-                        fila +="<td >";
-                            fila += precio;
+                            fila +="<td >";
+                                fila += precio;
+                                
+                            fila +="</td>";
+
+                            fila +="<td >";
+                                fila += importe;
                             
-                        fila +="</td>";
-
-                        fila +="<td >";
-                            fila += importe;
-                           
-                        fila +="</td>";
-                var todo=0;
-                        for(var i=0;i<subTotales.length;i++){
-                            todo=todo+subTotales[i];
-                        }
+                            fila +="</td>";
+                            var todo=0;
+                            for(var i=0;i<subTotales.length;i++){
+                                todo=todo+subTotales[i];
+                            }
                  fila+="</tr>";
                  $('#tabla-detalle').append(fila);
                  index++;

@@ -9,6 +9,7 @@ use App\Models\Compra\NotaCompra;
 use App\Models\Compra\NotaCompraDetalle;
 use App\Models\Producto\Producto;
 use App\Models\Proveedor\Proveedor;
+use App\Models\User;
 
 class CompraController extends Controller
 {
@@ -28,11 +29,59 @@ class CompraController extends Controller
     //guardado del formulario
     public function store(Request $request){
         
+        $inputs = $request->all();
+        $cantidades = $inputs['cantidades'];
+        $productos = $inputs['productos_id'];
+        $precios = $inputs['precios'];
+        $codigo = $this->generarCodigo();
+        $total = 0;
+        $compra = NotaCompra::create([
+            'codigo' => $codigo,
+            'proveedor_id' => $inputs['proveedor_id'],
+            'user_id' => auth()->user()->id,
+            'monto_total' => $total,
+            'concepto' => $inputs['concepto'],
+        ]);
+            for($i = 0 ;$i < count($productos) ; $i++){
+                
+                $precio = $precios[$i];
+                $cantidad = $cantidades[$i];
+                $sub_total = $precios[$i] * $cantidades[$i];
+                $total += $sub_total;
+                $compraDetalle = NotaCompraDetalle::create([
+                    'precio' => $precio,
+                    'cantidad' => $cantidad,
+                    'sub_total' => $sub_total,
+                    'producto_id' => $productos[$i],
+                    'nota_compras_id' => $compra->id,
+
+                ]);
+            
+
+            }
+            $compra->update([
+                'monto_total' => $total,
+            ]);
+        return redirect()->route('compras.index')->with('success','Compra registrada con Exito');
+        
+    }
+
+    private function generarCodigo(){
+        $codigo = "C-";
+        $nro = NotaCompra::get()->count() + 1;
+        $codigo = $codigo . \str_pad($nro,4,'0',STR_PAD_LEFT);
+        return $codigo;
     }
 
     //vista de un recurso en especifico
-    public function show( $usuario){
-       
+    public function show(NotaCompra $compra){
+        $detalles = NotaCompraDetalle::where('nota_compras_id',$compra->id)->get();
+        $proveedor = Proveedor::where('id',$compra->proveedor_id)->first();
+        $usuario = User::where('id',$compra->user_id)->first();
+        $productos = Producto::get();
+
+
+       return view('compras.show',compact('compra','detalles','proveedor','usuario','productos'));
     }
 
     //formulario de act

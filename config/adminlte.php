@@ -329,6 +329,16 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Bajas',
+            'icon'    => 'fas fa-fw fa-product',
+            'submenu' => [
+                [
+                    'text' => 'Listado de Bajas',
+                    'route'  => 'bajas.index',
+                ],
+            ],
+        ],
     ],
 
     /*

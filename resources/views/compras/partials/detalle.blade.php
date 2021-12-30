@@ -7,7 +7,7 @@ Detalle de Compra
                 <select name="pproducto_id" id="pproducto_id" class="form-control form-control-sm" onchange="actualizarUnidad();">
                     <option value="">-</option>
                     @foreach ($productos as $producto)
-                        <option value="{{ $producto->id }}_{{ $producto->unidad != null ? $producto->unidad->abreviacion : 'N/A' }}">{{ $producto->codigo . ' ' . $producto->nombre }}</option>
+                        <option value="{{ $producto->id }}_{{ $producto->unidad != null ? $producto->unidad->abreviacion : 'N/A' }}_{{$producto->nombre}}">{{ $producto->codigo . ' ' . $producto->nombre }}</option>
                     @endforeach
                 </select>
             </div>

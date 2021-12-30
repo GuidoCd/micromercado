@@ -15,9 +15,9 @@ class NotaCompraDetalle extends Model
     protected $fillable = [   
         'precio',
         'cantidad',
-        'subtotal',
+        'sub_total',
         'producto_id',
-        'nota_compra_id',
+        'nota_compras_id',
     ];
 
     public function nota_compra(){
