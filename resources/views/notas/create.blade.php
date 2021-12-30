@@ -12,15 +12,15 @@
                                         Creacion de Bajas
                                         </div>
                                         <div class="pull-rigth">
-                                            <a href="{{route('bajas.index')}}" class="btn btn-sm btn-info float-right">
+                                            <a href="{{route('notas.index')}}" class="btn btn-sm btn-info float-right">
                                                 <i class="fa fa-reply"></i>
                                             </a>
                                         </div>
                                 </div>
                                 <div class="card-body">
-                                        <form action="{{route('bajas.store')}}" method="post" id="form_create">
+                                        <form action="{{route('notas.store')}}" method="post" id="form_create">
                                             @csrf
-                                            @include('bajas.partials.form')
+                                            @include('notas.partials.form')
                                             <div class="col-md-12">
                                                 <button class="btn btn-sm btn-success float-right" onclick="guardar()">
                                                     <span>

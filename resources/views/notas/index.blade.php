@@ -22,7 +22,7 @@
                             Lista de Bajas
                         </div>           
                         <div class="pull-rigth">
-                            <a href="{{route('bajas.create')}}" class="btn btn-sm btn-success float-right">
+                            <a href="{{route('notas.create')}}" class="btn btn-sm btn-success float-right">
                                 <span>
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -62,21 +62,21 @@
                                                     {{$baja->monto_total}}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('bajas.show',$baja)}}" class="btn btn-sm btn-info">
+                                                    <a href="{{route('notas.show',$baja)}}" class="btn btn-sm btn-info">
                                                         <span>
                                                             <i class="fa fa-eye"></i>
                                                         </span>
                                                         &nbsp;
                                                         Ver  
                                                     </a>
-                                                    <a href="{{route('bajas.edit',$baja)}}" class="btn btn-sm btn-success">
+                                                    <a href="{{route('notas.edit',$baja)}}" class="btn btn-sm btn-success">
                                                             <span>
                                                                 <i class="fa fa-edit"></i>
                                                             </span>
                                                             &nbsp;
                                                             Editar
                                                     </a>
-                                                    <a href="{{route('bajas.destroy')}}" class="btn btn-sm btn-danger">
+                                                    <a href="{{route('notas.destroy')}}" class="btn btn-sm btn-danger">
                                                         <span>
                                                             <i class="fa fa-trash"></i>
                                                         </span>

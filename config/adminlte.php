@@ -335,7 +335,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Listado de Bajas',
-                    'route'  => 'bajas.index',
+                    'route'  => 'notas.index',
                 ],
             ],
         ],

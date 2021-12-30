@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Baja;
+namespace App\Http\Controllers\Nota;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Baja\Baja;
+use App\Models\Nota\Nota;
 use App\Models\User;
 use App\Models\Unidad\Unidad;
 use App\Models\Producto\Producto;
-use App\Models\Baja\DetalleBaja;
+use App\Models\Nota\NotaDetalles;
 
 
 
-class BajaController extends Controller
+class NotaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,9 +21,9 @@ class BajaController extends Controller
      */
     public function index()
     {
-        $bajas = Baja::get();
+        $bajas = Nota::get();
         $usuarios = User:: get();
-        return view('bajas.index',compact('bajas','usuarios'));
+        return view('notas.index',compact('bajas','usuarios'));
 
     }
 
@@ -36,7 +36,7 @@ class BajaController extends Controller
     {
         $productos = Producto::get();
         $unidades = Unidad::get();
-        return view('bajas.create',compact('productos','unidades'));
+        return view('notas.create',compact('productos','unidades'));
     }
 
     /**
@@ -50,7 +50,7 @@ class BajaController extends Controller
         //dd(auth()->user()->id);
         //dd($request->all());
         $inputs = $request->all();
-        $baja = Baja::create([
+        $baja = Nota::create([
             'empleado_id' => auth()->user()->id,
             'monto_total' => $inputs['total'],
             'descripcion' => $inputs['descripcion'],
@@ -68,12 +68,11 @@ class BajaController extends Controller
             $sub_total = $precio * $cantidad;
             $total += $sub_total;
 
-            $detalle = DetalleBaja::create([
+            $detalle = NotaDetalles::create([
                 'producto_id' => $productos_id[$i],
                 'precio' => $precio,
                 'cantidad' => $cantidad,
-                'sub_total' => $sub_total,
-                'nota_baja_id' => $baja->id,
+                'nota_id' => $baja->id,
 
             ]);
 
@@ -82,7 +81,7 @@ class BajaController extends Controller
         $baja->update([
            'sub_total' => $total,
         ]);
-        return redirect()->route('bajas.index')->with('success','baja creada exitosamente');
+        return redirect()->route('notas.index')->with('success','baja creada exitosamente');
         
     }
 
@@ -92,12 +91,12 @@ class BajaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( Baja $baja)
+    public function show( Nota $baja)
     {
-        $detalles = DetalleBaja::where('nota_baja_id',$baja->id)->get();  
+        $detalles = NotaDetalles::where('nota_id',$baja->id)->get();  
         $usuario = User::where('id',$baja->empleado_id)->first();
         $productos = Producto::get();
-        return view('bajas.show',compact('detalles','usuario','baja','productos'));
+        return view('notas.show',compact('detalles','usuario','baja','productos'));
 
     }
 

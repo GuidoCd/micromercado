@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Models\Baja;
+namespace App\Models\Nota;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Baja extends Model
+class Nota extends Model
 {
     use HasFactory;
 
-    protected  $table = 'bajas';
+    protected  $table = 'notas';
 
     protected $fillable = [
         'empleado_id',
+        'codigo',
+        'tipo_movimiento',
         'monto_total',
         'descripcion',
-        'created_at',
+        'estado',
         
-
-
     ];
 
     public function getFechaFormateadaAttribute(){

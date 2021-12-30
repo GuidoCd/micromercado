@@ -9,7 +9,7 @@
                     <div class="card-header bg-secondary">
                         <div class="card-title">Nota de Baja</div>
                         <div class="pull-right">
-                            <a href="{{route('bajas.index')}}" class="btn btn-sm btn-info float-right">
+                            <a href="{{route('notas.index')}}" class="btn btn-sm btn-info float-right">
                                 <span>
                                     <i class="fa fa-reply"></i>
                                 </span>
