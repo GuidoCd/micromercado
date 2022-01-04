@@ -19,7 +19,7 @@
             <div class="card card-custom">
                     <div class="card-header bg-secondary">
                         <div class="card-title">
-                            Lista de Bajas
+                            Lista de Notas
                         </div>           
                         <div class="pull-rigth">
                             <a href="{{route('notas.create')}}" class="btn btn-sm btn-success float-right">
@@ -35,41 +35,46 @@
                          <table class=" table table-striped table-hover table-bordered">
                                 <thead>
                                         <tr>
-                                            <th class="text-center">Nro</th>
+                                            <th class="text-center">Tipo de Movimiento</th>
                                             <th class="text-center">Empleado</th>
                                             <th class="text-center">Fecha</th>
-                                            <th class="text-center">Monto total</th>
+                                            <th class="text-center">Estado</th>
                                             <th class="text-center"colspan="3">Acciones</th>
                                         </tr>
                                 </thead>
                                 <tbody>
-                                        @foreach($bajas  as $baja)
+                                        @foreach($notas  as $nota)
                                             <tr>
                                                 <td class="text-justify p-1">
-                                                    {{$baja->id}}
-                                                </td>
+                                                    {{ $nota->tipo_movimiento_descripcion }}
+                                                    <span class="{{ $nota->tipo_movimiento_color }}">
+                                                        {{ $nota->tipo_movimiento_icono }}
+                                                    </span>
+                                               </td>
                                                 <td class="text-justify p-1">
                                                      @foreach($usuarios as $usuario)
-                                                         @if($usuario->id == $baja->empleado_id)
+                                                         @if($usuario->id == $nota->empleado_id)
                                                             {{$usuario->name}}
                                                          @endif
                                                      @endforeach
                                                 </td>
                                                 <td class="text-justify p-1">
-                                                     {{$baja->fecha_formateada}}
+                                                     {{$nota->fecha_formateada}}
                                                 </td>
                                                 <td class="text-justify p-1">
-                                                    {{$baja->monto_total}}
+                                                    <span class="{{ $nota->estado_color }}">
+                                                        {{ $nota->estado_descripcion }}
+                                                    </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('notas.show',$baja)}}" class="btn btn-sm btn-info">
+                                                    <a href="{{route('notas.show',$nota)}}" class="btn btn-sm btn-info">
                                                         <span>
                                                             <i class="fa fa-eye"></i>
                                                         </span>
                                                         &nbsp;
                                                         Ver  
                                                     </a>
-                                                    <a href="{{route('notas.edit',$baja)}}" class="btn btn-sm btn-success">
+                                                    <a href="{{route('notas.edit',$nota)}}" class="btn btn-sm btn-success">
                                                             <span>
                                                                 <i class="fa fa-edit"></i>
                                                             </span>
@@ -93,7 +98,10 @@
                          </table>
 
                     </div>
-
+                    <div class="card-footer clearfix">
+                        {{ $notas->appends(Request::all())->links() }}
+                        <p class="text-muted">Mostrando <strong>{{ $notas->count() }}</strong> registros de <strong>{{ $notas->total() }}</strong> totales</p>
+                    </div>
             </div>
 
     </div>

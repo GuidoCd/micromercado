@@ -22,13 +22,6 @@
             <div class="card-header bg-secondary">
                 <div class="card-title">Bitacoras</div>
                 <div class="pull-right">
-                    <a href="{{route('bitacoras.create')}}" class="btn btn-sm btn-success float-right">
-                        <span>
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        &nbsp;
-                        Crear
-                    </a>
                 </div>
 
             </div>

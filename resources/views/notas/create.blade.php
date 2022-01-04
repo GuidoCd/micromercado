@@ -52,11 +52,8 @@
         function llenarDatos(){
             var datos = $('#producto_idd').val();
             var vectorDatos = datos.split('_');
-            var unidad = vectorDatos[2];
-            var precio = vectorDatos[1];
-            $('#preciod').val(precio);
+            var unidad = vectorDatos[1];
             $('#unidadd').val(unidad);
-
         }
         function cargarFilas(){
             cargarDetalles();
@@ -84,7 +81,7 @@
             var fila="<tr class='fila-detalle-"+index+"'>";
                      fila +="<td>";
                          fila += item;
-                         fila += "<input type='hidden' name='productos_id[]' value='"+datos[3]+"'>"
+                         fila += "<input type='hidden' name='productos_id[]' value='"+datos[2]+"'>"
                      fila +="</td>";
 
                      fila +="<td>";

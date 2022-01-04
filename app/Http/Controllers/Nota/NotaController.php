@@ -22,9 +22,9 @@ class NotaController extends Controller
      */
     public function index()
     {
-        $bajas = Nota::get();
-        $usuarios = User:: get();
-        return view('notas.index',compact('bajas','usuarios'));
+        $notas = Nota::paginate(20);
+        $usuarios = User::get();
+        return view('notas.index',compact('notas','usuarios'));
 
     }
 

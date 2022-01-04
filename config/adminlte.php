@@ -331,11 +331,11 @@ return [
             ],
         ],
         [ 
-            'text'    => 'Bajas',           //<i class="fas fa-cart-arrow-down"></i>
+            'text'    => 'Notas de Movimiento',           //<i class="fas fa-cart-arrow-down"></i>
             'icon'    => 'fas fa-cart-arrow-down',
             'submenu' => [
                 [
-                    'text' => 'Listado de Bajas',
+                    'text' => 'Listado de Notas',
                     'route'  => 'notas.index',
                 ],
             ],

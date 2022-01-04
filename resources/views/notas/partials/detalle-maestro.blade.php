@@ -9,8 +9,8 @@ Detalle de Baja:
                                 @foreach($productos as $producto)
                                     @foreach($unidades as $unidad)
                                       @if($unidad->id == $producto->unidad_id)
-                                         <option value="{{$producto->nombre}}_{{$producto->precio}}_{{$producto->unidad->abreviacion}}_{{$producto->id}}">
-                                            {{$producto->nombre}}</option>
+                                         <option value="{{ $producto->nombre }}_{{ $producto->unidad != null ? $producto->unidad->abreviacion : 'N/A' }}_{{ $producto->id }}">
+                                            {{ $producto->nombre }}</option>
                                       @endif
                                     @endforeach
                                 @endforeach
@@ -22,7 +22,7 @@ Detalle de Baja:
                 </div>
                 <div class="col-md-2">
                     <label for="preciod">Precio:</label>
-                    <input type="text" name="preciod" id="preciod" class="form-control form-control-sm" readonly>
+                    <input type="text" name="preciod" id="preciod" class="form-control form-control-sm">
                 </div>
                 <div class="col-md-2">
                     <label for="cantidadd">Cantidad:</label>

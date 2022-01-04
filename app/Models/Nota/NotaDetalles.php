@@ -16,14 +16,10 @@ class NotaDetalles extends Model
         'producto_id',
         'precio',
         'cantidad',
-        'estado',
         'nota_id'
-
     ];
 
     public function nota(){
-
         return $this->hasOne(Nota::class,'id','nota_id');
-
     }
 }
