@@ -9,6 +9,7 @@ use App\Models\Producto\Producto;
 use App\Models\Categoria\Categoria;
 use App\Models\Nacionalidad\Nacionalidad;
 use App\Models\Unidad\Unidad;
+use App\Models\Bitacora\Bitacora;
 
 class ProductoController extends Controller
 {
@@ -47,6 +48,13 @@ class ProductoController extends Controller
         $codigo = $this->generarCodigo();
         $inputs['codigo'] = $codigo;
         $producto = Producto::create($inputs);
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 2,
+            'tabla' => 'productos',
+            'objeto' => 'AA',
+    
+           ]);
         return redirect()->route('productos.index')->with('success','Producto Creado con éxito!');
     }
 
@@ -83,6 +91,13 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto){
         $inputs = $request->except(['codigo']);
         $producto->update($inputs);
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 1,
+            'tabla' => 'productos',
+            'objeto' => 'AA',
+    
+           ]);
         return redirect()->route('productos.index')->with('success','Producto Actualizado con éxito!');
     }
 

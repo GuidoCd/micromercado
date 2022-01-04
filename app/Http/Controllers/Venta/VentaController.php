@@ -9,6 +9,7 @@ use App\Models\Persona\Persona;
 use App\Models\Producto\Producto;
 use App\Models\Auxiliar\Auxiliar;
 use App\Models\Venta\DetalleVenta;
+use App\Models\Bitacora\Bitacora;
 
 class VentaController extends Controller
 {
@@ -68,6 +69,13 @@ class VentaController extends Controller
                 
                 $nuevo = DetalleVenta::create($detalle);
         }
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 2,
+            'tabla' => 'ventas',
+            'objeto' => 'AA',
+    
+           ]);
         return redirect()->route('ventas.index')->with('success','venta creada con exito');
     }
 

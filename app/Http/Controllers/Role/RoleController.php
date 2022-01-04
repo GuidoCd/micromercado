@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\Bitacora\Bitacora;
 
 class RoleController extends Controller
 {
@@ -43,6 +44,13 @@ class RoleController extends Controller
         
         $role = Role::create($input);
         $role->syncPermissions($permisos);
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 2,
+            'tabla' => 'roles',
+            'objeto' => 'AA',
+    
+           ]);
         return redirect()->route('roles.index')->with('success','Rol Creado con Exito');
     }
 
@@ -92,6 +100,13 @@ class RoleController extends Controller
             $permisos = $inputs['permissions'];
             $role->syncPermissions($permisos);
 
+            $bitacora = Bitacora::create([
+                'user_id' => auth()->user()->id,
+                'accion' => 1,
+                'tabla' => 'roles',
+                'objeto' => 'AA',
+        
+               ]);
 
             return redirect()->route('roles.index')->with('success','Rol editado con exito');
     }   
@@ -107,6 +122,14 @@ class RoleController extends Controller
         $id = $request['rol_id'];
         $rol = Role::find($id);
         $rol->delete();
+
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 3,
+            'tabla' => 'roles',
+            'objeto' => 'AA',
+    
+           ]);
 
         return redirect()->route('roles.index')->with('success','Elimano con Exito');
     }

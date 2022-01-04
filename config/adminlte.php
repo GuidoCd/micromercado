@@ -45,8 +45,8 @@ return [
     |
     */
 
-    'logo' => 'Micromercado',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => 'Micromercado Vera',
+    'logo_img' => 'vendor/adminlte/dist/img/vera.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -242,11 +242,11 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+        // [
+        //     'text' => 'change_password',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-lock',
+        // ],
         [
             'text'    => 'Usuarios',
             'icon'    => 'fas fa-fw fa-users',
@@ -267,17 +267,18 @@ return [
         ],
         [
             'text'    => 'Compras',
-            'icon'    => 'fas fa-fw fa-users',
+            'icon'    => 'fas fa-people-carry', // <i class="fas fa-people-carry"></i>
             'submenu' => [
                 [
                     'text' => 'Listado de Compras',
                     'route'  => 'compras.index',
+                    
                 ],
             ],
         ],
         [
             'text'    => 'Ventas',
-            'icon'    => 'fas fa-fw fa-ususes',
+            'icon'    => 'fas fa-cash-register',
             'submenu' => [
                 [
                     'text' => 'Listado de Ventas',
@@ -286,8 +287,8 @@ return [
             ],
         ],
         [
-            'text'    => 'Productos',
-            'icon'    => 'fas fa-fw fa-product',
+            'text'    => 'Productos',           //<i class="fab fa-product-hunt"></i>
+            'icon'    => 'fab fa-product-hunt',
             'submenu' => [
                 [
                     'text' => 'Listado de Nacionalidades',
@@ -300,8 +301,8 @@ return [
             ],
         ],
         [
-            'text'    => 'Proveedores',
-            'icon'    => 'fas fa-fw fa-product',
+            'text'    => 'Proveedores',             //<i class="fas fa-truck-moving"></i>
+            'icon'    => 'fas fa-truck-moving',
             'submenu' => [
                 [
                     'text' => 'Listado de Proveedores',
@@ -310,8 +311,8 @@ return [
             ],
         ],
         [
-            'text'    => 'Categorias',
-            'icon'    => 'fas fa-fw fa-product',
+            'text'    => 'Categorias',    //<i class="fas fa-sitemap"></i>
+            'icon'    => 'fas fa-sitemap',
             'submenu' => [
                 [
                     'text' => 'Listado de Categorias',
@@ -320,8 +321,8 @@ return [
             ],
         ],
         [
-            'text'    => 'Clientes / Empleados',
-            'icon'    => 'fas fa-fw fa-product',
+            'text'    => 'Clientes / Empleados',   //<i class="fas fa-people-arrows"></i>
+            'icon'    => 'fas fa-people-arrows',
             'submenu' => [
                 [
                     'text' => 'Listado de C/E',
@@ -329,13 +330,23 @@ return [
                 ],
             ],
         ],
-        [
-            'text'    => 'Bajas',
-            'icon'    => 'fas fa-fw fa-product',
+        [ 
+            'text'    => 'Bajas',           //<i class="fas fa-cart-arrow-down"></i>
+            'icon'    => 'fas fa-cart-arrow-down',
             'submenu' => [
                 [
                     'text' => 'Listado de Bajas',
                     'route'  => 'notas.index',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Bitacoras',
+            'icon'    => 'fas fa-address-card',  //<i class="fas fa-address-card"></i>
+            'submenu' => [
+                [
+                    'text' => 'Listado de Bitacoras',
+                    'route'  => 'bitacoras.index',
                 ],
             ],
         ],

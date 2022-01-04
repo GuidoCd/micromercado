@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Categoria;
+namespace App\Http\Controllers\Bitacora;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Categoria\Categoria;
+use App\Models\User;
 use App\Models\Bitacora\Bitacora;
 
-class CategoriaController extends Controller
+class BitacoraController extends Controller
 {
     /**
-     * Display a listing of the resource.S
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $categorias=Categoria::paginate(10);
-        return view('categorias.index',compact('categorias'));
+        $bitacoras =Bitacora::get();
+        $usuarios = User::get();
+        return view('bitacoras.index',compact('bitacoras','usuarios'));
     }
 
     /**
@@ -27,7 +28,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('categorias.create');
+        //
     }
 
     /**
@@ -38,16 +39,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-       $inputs=$request->all();
-       $categoria=Categoria::create($inputs);
-       $bitacora = Bitacora::create([
-        'user_id' => auth()->user()->id,
-        'accion' => 2,
-        'tabla' => 'categorias',
-        'objeto' => 'AA',
-
-       ]);
-       return redirect()->route('categorias.index')->with('success','categoria creada con exito');
+        //
     }
 
     /**
@@ -67,9 +59,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
-        return view('categorias.edit',compact('categoria'));
+        //
     }
 
     /**
@@ -79,24 +71,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $inputs=$request->all();
-        $usuario=Categoria::find($inputs['categoria_id']);
-
-        $usuario->update([
-            'nombre' => $inputs['nombre']
-
-        ]);
-        $bitacora = Bitacora::create([
-            'user_id' => auth()->user()->id,
-            'accion' => 1,
-            'tabla' => 'categorias',
-            'objeto' => 'AA',
-    
-           ]);
-
-        return redirect()->route('categorias.index')->with('success','categoria actualizada con exito');
+        //
     }
 
     /**

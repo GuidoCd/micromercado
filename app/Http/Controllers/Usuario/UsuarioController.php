@@ -8,6 +8,10 @@ use Spatie\Permission\Models\Role;
 
 use App\Models\User;
 
+
+
+use App\Models\Bitacora\Bitacora;
+
 class UsuarioController extends Controller
 {
     //Listado de los recusos
@@ -29,6 +33,13 @@ class UsuarioController extends Controller
 
         $inputs['password'] = \bcrypt($inputs['password']);
         $usuario = User::create($inputs);
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 2,
+            'tabla' => 'usuarios',
+            'objeto' => 'AA',
+    
+           ]);
 
         return redirect()->route('usuarios.index')->with('success','Usuario Creado con éxito!');
     }
@@ -62,6 +73,13 @@ class UsuarioController extends Controller
                 'email' => $inputs["email"],
             ]);
         }
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 1,
+            'tabla' => 'usuarios',
+            'objeto' => 'AA',
+    
+           ]);
 
         return redirect()->route('usuarios.index')->with('success','Usuario actualizado con éxito!');
         
@@ -75,6 +93,13 @@ class UsuarioController extends Controller
         $usuario = User::find($id);
 
         $usuario->delete();
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 3,
+            'tabla' => 'usuarios',
+            'objeto' => 'AA',
+    
+           ]);
 
         return redirect()->route('usuarios.index')->with('success','Usuario eliminado con éxito!');
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Nacionalidad\Nacionalidad;
+use App\Models\Bitacora\Bitacora;
 
 
 class NacionalidadController extends Controller
@@ -31,6 +32,14 @@ class NacionalidadController extends Controller
 
         $nacionalidad = Nacionalidad::create($inputs);
 
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 2,
+            'tabla' => 'nacionalidades',
+            'objeto' => 'AA',
+    
+           ]);
+
         return redirect()->route('nacionalidades.index')->with('success','Nacionalidad Creada con éxito!');
 
     }
@@ -55,6 +64,14 @@ class NacionalidadController extends Controller
         $nacionalidad = Nacionalidad::find($inputs["nacionalidad_id"]);
 
         $nacionalidad->update($inputs);
+
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 1,
+            'tabla' => 'nacionalidades',
+            'objeto' => 'AA',
+    
+           ]);
 
         return redirect()->route('nacionalidades.index')->with('success','Nacionalidad actualizada con éxito!');
         

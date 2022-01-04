@@ -8,6 +8,7 @@ use App\Models\Persona\Persona;
 use App\Models\Auxiliar\Auxiliar;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use App\Models\Bitacora\Bitacora;
 
 use DB;
 use Auth;
@@ -51,8 +52,22 @@ class PersonasController extends Controller
                 if($persona->tipo == Persona::CLIENTE){
                     $inputs['persona_id'] = $persona->id;
                     $auxiliar = Auxiliar::create($inputs);
+                    $bitacora = Bitacora::create([
+                        'user_id' => auth()->user()->id,
+                        'accion' => 2,
+                        'tabla' => 'persona/cliente',
+                        'objeto' => 'AA',
+                
+                       ]);
                 }else{
                     $this->crearUsuario($persona, $inputs['email'], $inputs['role_id']);
+                    $bitacora = Bitacora::create([
+                        'user_id' => auth()->user()->id,
+                        'accion' => 2,
+                        'tabla' => 'persona/usuario',
+                        'objeto' => 'AA',
+                
+                       ]);
                 }
             });
             return redirect()->route('personas.index')->with('success','persona creada con exito');
@@ -114,6 +129,13 @@ class PersonasController extends Controller
                         'email' => $inputs['email'],
                         'role_id' => $inputs['role_id'],
                     ]);
+                    $bitacora = Bitacora::create([
+                        'user_id' => auth()->user()->id,
+                        'accion' => 1,
+                        'tabla' => 'Personas/Empleado',
+                        'objeto' => 'AA',
+                
+                       ]);
                 }
              }else if($persona->tipo == Persona::CLIENTE){
                 $auxiliar = Auxiliar::where('persona_id',$persona->id)->first();
@@ -122,11 +144,25 @@ class PersonasController extends Controller
                         'nit' => $inputs['nit'],
                         'razon_social' => $inputs['razon_social'],
                     ]);
+                    $bitacora = Bitacora::create([
+                        'user_id' => auth()->user()->id,
+                        'accion' => 1,
+                        'tabla' => 'Personas/Cliente',
+                        'objeto' => 'AA',
+                
+                       ]);
                 }else{
                     $auxiliar->update([
                         'nit' => $inputs['nit'],
                         'razon_social' => $inputs['razon_social'],
                     ]);
+                    $bitacora = Bitacora::create([
+                        'user_id' => auth()->user()->id,
+                        'accion' => 1,
+                        'tabla' => 'auxiliares',
+                        'objeto' => 'AA',
+                
+                       ]);
                 }
              }
              return redirect()->route('personas.index')->with('success','Persona actualizada correctamente');
@@ -145,6 +181,13 @@ class PersonasController extends Controller
             $usuario = Persona::find($id);
 
             $usuario->delete();
+            $bitacora = Bitacora::create([
+                'user_id' => auth()->user()->id,
+                'accion' => 3,
+                'tabla' => 'persona',
+                'objeto' => 'AA',
+        
+               ]);
             return redirect()->route('personas.index')->with('success','usuarios elimanado con exito');
     }
 

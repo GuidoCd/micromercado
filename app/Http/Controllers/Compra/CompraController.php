@@ -10,6 +10,7 @@ use App\Models\Compra\NotaCompraDetalle;
 use App\Models\Producto\Producto;
 use App\Models\Proveedor\Proveedor;
 use App\Models\User;
+use App\Models\Bitacora\Bitacora;
 
 class CompraController extends Controller
 {
@@ -62,6 +63,13 @@ class CompraController extends Controller
             $compra->update([
                 'monto_total' => $total,
             ]);
+            $bitacora = Bitacora::create([
+                'user_id' => auth()->user()->id,
+                'accion' => 2,
+                'tabla' => 'compras',
+                'objeto' => 'AA',
+        
+               ]);
         return redirect()->route('compras.index')->with('success','Compra registrada con Exito');
         
     }

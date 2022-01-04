@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Proveedor;
 use App\Models\Proveedor\Proveedor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Bitacora\Bitacora;
 
 
 class ProveedorController extends Controller
@@ -45,6 +45,14 @@ class ProveedorController extends Controller
 
 
         $proveedor = Proveedor::create($inputs);
+
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 2,
+            'tabla' => 'proveedores',
+            'objeto' => 'AA',
+    
+           ]);
 
         return redirect()->route('proveedores.index')->with('success','Proveedor Creado con éxito!');
 
@@ -87,6 +95,14 @@ class ProveedorController extends Controller
 
         $proveedor->update($inputs);
 
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 1,
+            'tabla' => 'proveedores',
+            'objeto' => 'AA',
+    
+           ]);
+
        return redirect()->route('proveedores.index')->with('success','Proveedor actualizado con éxito!');
 
     }
@@ -102,6 +118,13 @@ class ProveedorController extends Controller
             $usuario=Proveedor::find($request['proveedor_id']);
 
             $usuario->delete();
+            $bitacora = Bitacora::create([
+                'user_id' => auth()->user()->id,
+                'accion' => 3,
+                'tabla' => 'proveedores',
+                'objeto' => 'AA',
+        
+               ]);
             
             return redirect()->route('proveedores.index')->with('success','Proveedor elimando correctamente');
 

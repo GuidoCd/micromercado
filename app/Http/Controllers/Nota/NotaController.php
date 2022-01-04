@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Unidad\Unidad;
 use App\Models\Producto\Producto;
 use App\Models\Nota\NotaDetalles;
+use App\Models\Bitacora\Bitacora;
 
 
 
@@ -81,6 +82,13 @@ class NotaController extends Controller
         $baja->update([
            'sub_total' => $total,
         ]);
+        $bitacora = Bitacora::create([
+            'user_id' => auth()->user()->id,
+            'accion' => 2,
+            'tabla' => 'notas-bajas',
+            'objeto' => 'AA',
+    
+           ]);
         return redirect()->route('notas.index')->with('success','baja creada exitosamente');
         
     }
