@@ -250,103 +250,123 @@ return [
         [
             'text'    => 'Usuarios',
             'icon'    => 'fas fa-fw fa-users',
+            'can'  => ['roles.index', 'permisos.index','usuarios.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Roles',
                     'route'  => 'roles.index',
+                    'can' => 'roles.index',
                 ],
                 [
                     'text' => 'Listado de Permisos',
                     'route'  => 'permisos.index',
+                    'can' => 'permisos.index',
                 ],
                 [
                     'text' => 'Listado de Usuarios',
                     'route'  => 'usuarios.index',
+                    'can' => 'usuarios.index',
                 ],
             ],
         ],
         [
             'text'    => 'Compras',
             'icon'    => 'fas fa-people-carry', // <i class="fas fa-people-carry"></i>
+            'can'  => ['compras.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Compras',
                     'route'  => 'compras.index',
-                    
+                    'can'  => 'compras.index',
                 ],
             ],
         ],
         [
             'text'    => 'Ventas',
             'icon'    => 'fas fa-cash-register',
+            'can'  => ['ventas.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Ventas',
                     'route'  => 'ventas.index',
+                    'can'  => 'ventas.index',
                 ],
             ],
         ],
         [
             'text'    => 'Productos',           //<i class="fab fa-product-hunt"></i>
             'icon'    => 'fab fa-product-hunt',
+            'can'  => ['nacionalidades.index','productos.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Nacionalidades',
                     'route'  => 'nacionalidades.index',
+                    'can'  => 'nacionalidades.index',
                 ],
                 [
                     'text' => 'Listado de Prodcutos',
                     'route'  => 'productos.index',
+                    'can'  => 'productos.index',
                 ],
             ],
         ],
         [
             'text'    => 'Proveedores',             //<i class="fas fa-truck-moving"></i>
             'icon'    => 'fas fa-truck-moving',
+            'can'  => ['proveedores.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Proveedores',
                     'route'  => 'proveedores.index',
+                    'can'  => 'proveedores.index',
                 ],
             ],
         ],
         [
             'text'    => 'Categorias',    //<i class="fas fa-sitemap"></i>
             'icon'    => 'fas fa-sitemap',
+            'can'  => ['categorias.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Categorias',
                     'route'  => 'categorias.index',
+                    'can'  => 'categorias.index',
                 ],
             ],
         ],
         [
             'text'    => 'Clientes / Empleados',   //<i class="fas fa-people-arrows"></i>
             'icon'    => 'fas fa-people-arrows',
+            'can'  => ['personas.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de C/E',
                     'route'  => 'personas.index',
+                    'can'  => 'personas.index',
                 ],
             ],
         ],
         [ 
             'text'    => 'Notas de Movimiento',           //<i class="fas fa-cart-arrow-down"></i>
             'icon'    => 'fas fa-cart-arrow-down',
+            'can'  => ['notas.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Notas',
                     'route'  => 'notas.index',
+                    'can'  => 'notas.index',
                 ],
             ],
         ],
         [
             'text'    => 'Bitacoras',
             'icon'    => 'fas fa-address-card',  //<i class="fas fa-address-card"></i>
+            'can'  => ['bitacoras.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Bitacoras',
                     'route'  => 'bitacoras.index',
+                    'can'  => 'bitacoras.index',
                 ],
             ],
         ],
