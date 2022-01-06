@@ -286,7 +286,7 @@ return [
         [
             'text'    => 'Productos',           //<i class="fab fa-product-hunt"></i>
             'icon'    => 'fab fa-product-hunt',
-            'can'  => ['nacionalidades.index','productos.index'],
+            'can'  => ['nacionalidades.index','productos.index','stocks.index','notas.index'],
             'submenu' => [
                 [
                     'text' => 'Listado de Nacionalidades',
@@ -297,6 +297,16 @@ return [
                     'text' => 'Listado de Prodcutos',
                     'route'  => 'productos.index',
                     'can'  => 'productos.index',
+                ],
+                [
+                    'text' => 'Listado de Stock',
+                    'route'  => 'stocks.index',
+                    'can'  => 'stocks.index',
+                ],
+                [
+                    'text' => 'Listado de Movimientos',
+                    'route'  => 'notas.index',
+                    'can'  => 'notas.index',
                 ],
             ],
         ],
@@ -333,18 +343,6 @@ return [
                     'text' => 'Listado de C/E',
                     'route'  => 'personas.index',
                     'can'  => 'personas.index',
-                ],
-            ],
-        ],
-        [ 
-            'text'    => 'Notas de Movimiento',           //<i class="fas fa-cart-arrow-down"></i>
-            'icon'    => 'fas fa-cart-arrow-down',
-            'can'  => ['notas.index'],
-            'submenu' => [
-                [
-                    'text' => 'Listado de Notas',
-                    'route'  => 'notas.index',
-                    'can'  => 'notas.index',
                 ],
             ],
         ],

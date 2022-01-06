@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Nota\Nota;
 
-class NotaDetalles extends Model
+class NotaDetalle extends Model
 {
     use HasFactory;
 

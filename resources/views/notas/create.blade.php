@@ -9,7 +9,7 @@
                             <div class="card-custom">
                                 <div class="card-header bg-secondary">
                                         <div class="card-title">
-                                        Creacion de Bajas
+                                        Creacion de Nota de Movimiento
                                         </div>
                                         <div class="pull-rigth">
                                             <a href="{{route('notas.index')}}" class="btn btn-sm btn-info float-right">
@@ -90,7 +90,8 @@
                      fila +="</td>";
 
                      fila +="<td>";
-                         fila += precio;
+                        fila += precio;
+                        fila += "<input type='hidden' name='precios[]' value='"+precio+"'>"
                      fila +="</td>";
 
                      fila +="<td>";

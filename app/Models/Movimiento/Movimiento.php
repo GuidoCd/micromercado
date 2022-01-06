@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Web\Movimiento;
+namespace App\Models\Movimiento;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;

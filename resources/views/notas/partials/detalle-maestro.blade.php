@@ -1,4 +1,4 @@
-Detalle de Baja:
+Detalle de Nota:
 <div class="card card-custom">
     <div class="card-header bg-secondary">
         <div class="row">
@@ -21,12 +21,12 @@ Detalle de Baja:
                     <input type="text" name="unidadd" id="unidadd" class="form-control form-control-sm" readonly>
                 </div>
                 <div class="col-md-2">
-                    <label for="preciod">Precio:</label>
-                    <input type="text" name="preciod" id="preciod" class="form-control form-control-sm">
-                </div>
-                <div class="col-md-2">
                     <label for="cantidadd">Cantidad:</label>
                     <input type="text" name="cantidadd" id="cantidadd" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-2">
+                    <label for="preciod">Precio:</label>
+                    <input type="text" name="preciod" id="preciod" class="form-control form-control-sm">
                 </div>
         </div>
         <div class="row mt-2">

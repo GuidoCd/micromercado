@@ -47,9 +47,9 @@ class Nota extends Model
     {
         $tipoMovimientoIcono = "N/A";
         if ($this->tipo_movimiento == Nota::TIPO_MOV_INGRESO) {
-            $tipoMovimientoIcono = "fa fa-arrow-circle-up";
+            $tipoMovimientoIcono = "";
         } else if ($this->tipo_movimiento == Nota::TIPO_MOV_SALIDA) {
-            $tipoMovimientoIcono = "fa fa-arrow-circle-down";
+            $tipoMovimientoIcono = "";
         }
         return $tipoMovimientoIcono;
     }
