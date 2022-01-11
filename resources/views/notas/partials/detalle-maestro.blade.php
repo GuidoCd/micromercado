@@ -2,7 +2,7 @@ Detalle de Nota:
 <div class="card card-custom">
     <div class="card-header bg-secondary">
         <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-10">
                     <label for="producto_idd">Producto:</label>
                     <select name="producto_idd" id="producto_idd" class="form-control form-control-sm" onchange="llenarDatos()">
                             <option value="">-</option>
@@ -20,14 +20,20 @@ Detalle de Nota:
                     <label for="unidadd">Unidad</label>
                     <input type="text" name="unidadd" id="unidadd" class="form-control form-control-sm" readonly>
                 </div>
-                <div class="col-md-2">
-                    <label for="cantidadd">Cantidad:</label>
-                    <input type="text" name="cantidadd" id="cantidadd" class="form-control form-control-sm">
-                </div>
-                <div class="col-md-2">
-                    <label for="preciod">Precio:</label>
-                    <input type="text" name="preciod" id="preciod" class="form-control form-control-sm">
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="fecha_vencimientod">Fecha Vencimiento:</label>
+                <input type="date" name="fecha_vencimientod" id="fecha_vencimientod" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-2">
+                <label for="cantidadd">Cantidad:</label>
+                <input type="text" name="cantidadd" id="cantidadd" class="form-control form-control-sm">
+            </div>
+            <div class="col-md-2">
+                <label for="preciod">Precio:</label>
+                <input type="text" name="preciod" id="preciod" class="form-control form-control-sm">
+            </div>
         </div>
         <div class="row mt-2">
             <div class="col-md-12">

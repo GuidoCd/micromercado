@@ -39,23 +39,16 @@ class ProveedorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $inputs = $request->all();
-
-
         $proveedor = Proveedor::create($inputs);
-
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 2,
-            'tabla' => 'proveedores',
-            'objeto' => 'AA',
-    
-           ]);
-
+            'accion' => Bitacora::TIPO_CREO,
+            'tabla' => 'Proveedores',
+            'objeto' => json_encode($proveedor),
+        ]);
         return redirect()->route('proveedores.index')->with('success','Proveedor Creado con éxito!');
-
     }
 
     /**
@@ -87,24 +80,18 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         $inputs = $request->all();
-
         $proveedor = Proveedor::find($inputs['proveedor_id']);
-
+        $proveedorAnterior = Proveedor::find($inputs['proveedor_id']);
         $proveedor->update($inputs);
-
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 1,
-            'tabla' => 'proveedores',
-            'objeto' => 'AA',
-    
-           ]);
-
+            'accion' => Bitacora::TIPO_EDITO,
+            'tabla' => 'Proveedores',
+            'objeto' => json_encode($proveedorAnterior) . '__' . json_encode($proveedor),
+        ]);
        return redirect()->route('proveedores.index')->with('success','Proveedor actualizado con éxito!');
-
     }
 
     /**
@@ -113,20 +100,17 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response 
      */
-    public function destroy(Request $request)
-    {
-            $usuario=Proveedor::find($request['proveedor_id']);
-
-            $usuario->delete();
+    public function destroy(Request $request){
+            $proveedor = Proveedor::find($request['proveedor_id']);
+            $proveedor->update([
+                'estado' => Proveedor::DESHABILITADO
+            ]);
             $bitacora = Bitacora::create([
                 'user_id' => auth()->user()->id,
-                'accion' => 3,
-                'tabla' => 'proveedores',
-                'objeto' => 'AA',
-        
-               ]);
-            
+                'accion' => Bitacora::TIPO_ELIMINO_ANULO,
+                'tabla' => 'Proveedores',
+                'objeto' => json_encode($proveedor),
+            ]);
             return redirect()->route('proveedores.index')->with('success','Proveedor elimando correctamente');
-
     }
 }

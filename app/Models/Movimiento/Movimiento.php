@@ -16,6 +16,7 @@ class Movimiento extends Model
         'fecha_vencimiento',
         'cantidad',
         'precio',
+        'precio_movimiento',
         'saldo',
         'estado',
     ];

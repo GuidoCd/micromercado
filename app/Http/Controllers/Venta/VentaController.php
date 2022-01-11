@@ -71,11 +71,10 @@ class VentaController extends Controller
         }
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 2,
-            'tabla' => 'ventas',
-            'objeto' => 'AA',
-    
-           ]);
+            'accion' => Bitacora::TIPO_CREO,
+            'tabla' => 'Ventas',
+            'objeto' => json_encode($venta),
+        ]);
         return redirect()->route('ventas.index')->with('success','venta creada con exito');
     }
 

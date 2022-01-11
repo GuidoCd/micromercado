@@ -36,6 +36,7 @@
                                 <thead>
                                         <tr>
                                             <th class="text-center">Tipo de Movimiento</th>
+                                            <th class="text-center">Codigo</th>
                                             <th class="text-center">Empleado</th>
                                             <th class="text-center">Fecha</th>
                                             <th class="text-center">Estado</th>
@@ -51,6 +52,9 @@
                                                         {{ $nota->tipo_movimiento_icono }}
                                                     </span>
                                                </td>
+                                               <td class="text-justify p-1">
+                                                   {{ $nota->codigo }}
+                                               </td>
                                                 <td class="text-justify p-1">
                                                      @foreach($usuarios as $usuario)
                                                          @if($usuario->id == $nota->empleado_id)
@@ -61,33 +65,45 @@
                                                 <td class="text-justify p-1">
                                                      {{$nota->fecha_formateada}}
                                                 </td>
-                                                <td class="text-justify p-1">
+                                                <td class="text-center p-1">
                                                     <span class="{{ $nota->estado_color }}">
                                                         {{ $nota->estado_descripcion }}
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{route('notas.show',$nota)}}" class="btn btn-sm btn-info">
+                                                    <a href="{{route('notas.show',$nota->id)}}" class="btn btn-sm btn-info">
                                                         <span>
                                                             <i class="fa fa-eye"></i>
                                                         </span>
                                                         &nbsp;
                                                         Ver  
                                                     </a>
-                                                    <a href="{{route('notas.edit',$nota)}}" class="btn btn-sm btn-success">
-                                                            <span>
-                                                                <i class="fa fa-edit"></i>
-                                                            </span>
-                                                            &nbsp;
-                                                            Editar
-                                                    </a>
-                                                    <a href="{{route('notas.destroy')}}" class="btn btn-sm btn-danger">
-                                                        <span>
-                                                            <i class="fa fa-trash"></i>
-                                                        </span>
-                                                        &nbsp;
-                                                        Eliminar
-                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    @can('notas.edit')
+                                                        @if ($nota->estado == $nota::PENDIENTE)
+                                                            <a href="{{route('notas.edit',$nota->id)}}" class="btn btn-sm btn-success">
+                                                                <span>
+                                                                    <i class="fa fa-edit"></i>
+                                                                </span>
+                                                                &nbsp;
+                                                                Editar
+                                                            </a>
+                                                        @endif
+                                                    @endcan
+                                                </td>
+                                                <td>
+                                                    @can('notas.anular')
+                                                        @if ($nota->estado == $nota::PENDIENTE)
+                                                            <a href="{{route('notas.anular',$nota->id)}}" class="btn btn-sm btn-danger">
+                                                                <span>
+                                                                    <i class="fa fa-trash"></i>
+                                                                </span>
+                                                                &nbsp;
+                                                                Anular
+                                                            </a>
+                                                        @endif
+                                                    @endcan
                                                 </td>
                                             </tr>
 

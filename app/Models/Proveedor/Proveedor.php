@@ -18,6 +18,9 @@ class Proveedor extends Model
         'telefono'
     ];
 
+    const HABILITADO = 1;
+    const DESHABILITADO = 2;
+
     public function getEstadoDescripcionAttribute(){
         $estados = ['HABILITADO','INHABILITADO'];
         return $estados[$this->attributes['estado'] - 1];

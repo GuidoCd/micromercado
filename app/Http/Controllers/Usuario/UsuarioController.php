@@ -28,19 +28,15 @@ class UsuarioController extends Controller
 
     //guardado del formulario
     public function store(Request $request){
-        
         $inputs = $request->all();
-
         $inputs['password'] = \bcrypt($inputs['password']);
         $usuario = User::create($inputs);
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 2,
-            'tabla' => 'usuarios',
-            'objeto' => 'AA',
-    
-           ]);
-
+            'accion' => Bitacora::TIPO_CREO,
+            'tabla' => 'Usuarios',
+            'objeto' => json_encode($usuario),
+        ]);
         return redirect()->route('usuarios.index')->with('success','Usuario Creado con éxito!');
     }
 
@@ -60,6 +56,7 @@ class UsuarioController extends Controller
         $inputs = $request->all();
 
         $usuario = User::find($inputs["usuario_id"]);
+        $usuarioAnterior = User::find($inputs["usuario_id"]);
 
         if($inputs["password"] != null){
             $usuario->update([
@@ -75,32 +72,25 @@ class UsuarioController extends Controller
         }
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 1,
-            'tabla' => 'usuarios',
-            'objeto' => 'AA',
-    
-           ]);
-
+            'accion' => Bitacora::TIPO_EDITO,
+            'tabla' => 'Usuarios',
+            'objeto' => json_encode($usuarioAnterior) . '__' . json_encode($usuario),
+        ]);
         return redirect()->route('usuarios.index')->with('success','Usuario actualizado con éxito!');
-        
     }
 
     //eliminar de recurso
     public function destroy(Request $request){
-
         $inputs = $request->all();
         $id = $inputs["usuario_id"];
         $usuario = User::find($id);
-
         $usuario->delete();
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 3,
-            'tabla' => 'usuarios',
-            'objeto' => 'AA',
-    
-           ]);
-
+            'accion' => Bitacora::TIPO_ELIMINO_ANULO,
+            'tabla' => 'Usuarios',
+            'objeto' => json_encode($usuario),
+        ]);
         return redirect()->route('usuarios.index')->with('success','Usuario eliminado con éxito!');
     }
 }

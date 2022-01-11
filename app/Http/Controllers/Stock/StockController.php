@@ -14,6 +14,7 @@ class StockController extends Controller{
                         ->select(
                             'producto_id',DB::raw('SUM(saldo) as total'),'fecha_vencimiento'
                         )
+                        ->where('estado',Movimiento::ESTADO_REALIZADO)
                         ->groupBy('producto_id')
                         ->groupBy('fecha_vencimiento')
                         ->get();

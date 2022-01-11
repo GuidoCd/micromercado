@@ -26,22 +26,15 @@ class NacionalidadController extends Controller
 
     //guardado del formulario
     public function store(Request $request){
-        
         $inputs = $request->all();
-
-
         $nacionalidad = Nacionalidad::create($inputs);
-
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 2,
-            'tabla' => 'nacionalidades',
-            'objeto' => 'AA',
-    
-           ]);
-
+            'accion' => Bitacora::TIPO_CREO,
+            'tabla' => 'Producto | Nacionalidad',
+            'objeto' => json_encode($nacionalidad),
+        ]);
         return redirect()->route('nacionalidades.index')->with('success','Nacionalidad Creada con éxito!');
-
     }
 
     //vista de un recurso en especifico
@@ -58,23 +51,17 @@ class NacionalidadController extends Controller
 
     //actualizacion del recurso
     public function update(Request $request){
-        
         $inputs = $request->all();
-
+        $nacionalidadAnterior = Nacionalidad::find($inputs["nacionalidad_id"]);
         $nacionalidad = Nacionalidad::find($inputs["nacionalidad_id"]);
-
         $nacionalidad->update($inputs);
-
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 1,
-            'tabla' => 'nacionalidades',
-            'objeto' => 'AA',
-    
-           ]);
-
+            'accion' => Bitacora::TIPO_EDITO,
+            'tabla' => 'Producto | Nacionalidad',
+            'objeto' => json_encode($nacionalidadAnterior) . ',' . json_encode($nacionalidad),
+        ]);
         return redirect()->route('nacionalidades.index')->with('success','Nacionalidad actualizada con éxito!');
-        
     }
 
     //eliminar de recurso

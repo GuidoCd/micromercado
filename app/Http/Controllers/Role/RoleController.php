@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Role;
 
+use App\Exceptions\ValidationException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -41,16 +42,14 @@ class RoleController extends Controller
     public function store(Request $request)
     {   $input = $request->all();
         $permisos = $input['permissions'];
-        
         $role = Role::create($input);
         $role->syncPermissions($permisos);
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 2,
-            'tabla' => 'roles',
-            'objeto' => 'AA',
-    
-           ]);
+            'accion' => Bitacora::TIPO_CREO,
+            'tabla' => 'Roles',
+            'objeto' => json_encode($role),
+        ]);
         return redirect()->route('roles.index')->with('success','Rol Creado con Exito');
     }
 
@@ -92,22 +91,19 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Role $role)
-    {
+    public function update(Request $request,Role $role){
             $inputs = $request->all();
             $role->update($inputs);
-
             $permisos = $inputs['permissions'];
+            $permisosAnteriores = $role->permissions;
             $role->syncPermissions($permisos);
-
+            $permisos = $role->permissions;
             $bitacora = Bitacora::create([
                 'user_id' => auth()->user()->id,
-                'accion' => 1,
-                'tabla' => 'roles',
-                'objeto' => 'AA',
-        
-               ]);
-
+                'accion' => Bitacora::TIPO_EDITO,
+                'tabla' => 'Roles',
+                'objeto' => json_encode($permisosAnteriores) . '__' . json_encode($permisos),
+            ]);
             return redirect()->route('roles.index')->with('success','Rol editado con exito');
     }   
 
@@ -117,20 +113,28 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
-    {
-        $id = $request['rol_id'];
-        $rol = Role::find($id);
-        $rol->delete();
-
-        $bitacora = Bitacora::create([
-            'user_id' => auth()->user()->id,
-            'accion' => 3,
-            'tabla' => 'roles',
-            'objeto' => 'AA',
-    
-           ]);
-
-        return redirect()->route('roles.index')->with('success','Elimano con Exito');
+    public function destroy(Request $request){
+        try {
+            $users = User::get();
+            $id = $request['rol_id'];
+            $rol = Role::find($id);
+            foreach($users as $user){
+                if($user->hasRole($rol->name)){
+                    throw new ValidationException('Acción no autorizada, existen usuarios con este role!');
+                }
+            }
+            $rol->delete();
+            $bitacora = Bitacora::create([
+                'user_id' => auth()->user()->id,
+                'accion' => Bitacora::TIPO_ELIMINO_ANULO,
+                'tabla' => 'Roles',
+                'objeto' => json_encode($rol)
+            ]);
+            return redirect()->route('roles.index')->with('success','Elimano con Exito');
+        } catch (ValidationException $th) {
+            return redirect()->back()->with('error',$th->getMessage());
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Ups! Ocurrio un error, por favor contactarse con el área de sistema!');
+        }
     }
 }

@@ -16,7 +16,7 @@ class BitacoraController extends Controller
      */
     public function index()
     {
-        $bitacoras =Bitacora::get();
+        $bitacoras =Bitacora::orderBy('id','DESC')->get();
         $usuarios = User::get();
         return view('bitacoras.index',compact('bitacoras','usuarios'));
     }

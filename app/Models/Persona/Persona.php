@@ -26,6 +26,9 @@ class Persona extends Model
     const EMPLEADO = 1;
     const CLIENTE = 2;
 
+    const  HABILITADO = 1;
+    const  DESHABILITADO = 2;
+
     public function getEstadoDescripcionAttribute(){
         $estados=['HABILITADO','DESHABILITADO'];
         return $estados[$this->attributes['estado'] -1 ];

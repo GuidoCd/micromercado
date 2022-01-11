@@ -65,11 +65,10 @@ class CompraController extends Controller
             ]);
             $bitacora = Bitacora::create([
                 'user_id' => auth()->user()->id,
-                'accion' => 2,
-                'tabla' => 'compras',
-                'objeto' => 'AA',
-        
-               ]);
+                'accion' => Bitacora::TIPO_CREO,
+                'tabla' => 'Compras',
+                'objeto' => json_encode($compra),
+            ]);
         return redirect()->route('compras.index')->with('success','Compra registrada con Exito');
         
     }

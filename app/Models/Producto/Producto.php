@@ -39,5 +39,9 @@ class Producto extends Model
     public function unidad(){
         return $this->hasOne(Unidad::class,'id','unidad_id');
     }
+
+    public function getCodigoNombreAttribute(){
+        return $this->attributes['codigo'] . ' - ' . $this->attributes['nombre'];
+    }
     
 }

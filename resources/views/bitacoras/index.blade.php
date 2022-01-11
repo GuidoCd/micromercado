@@ -32,7 +32,7 @@
                         <tr>
                             <th class="text-center">Usuario</th>
                             <th class="text-center">Accion</th>
-                            <th class="text-center">tabla</th>
+                            <th class="text-center">Modulo</th>
                             <th class="text-center">Fecha</th>
                             <th class="text-center">Acciones</th>
                         </tr>
@@ -40,24 +40,26 @@
                     <tbody>
                             @foreach($bitacoras as $bitacora)
                                 <tr>
-                                    <td class="text-center">
+                                    <td class="text-center p-1">
                                         @foreach($usuarios as $usuario)
                                             @if($usuario->id == $bitacora->user_id)
                                                 {{$usuario->name}}
                                             @endif
                                         @endforeach
                                     </td>
-                                    <td class="{{ $bitacora->accion_color }}" >
-                                        {{$bitacora->accion_descripcion}}
+                                    <td class="text-center p-1">
+                                        <span class="{{ $bitacora->accion_color }}">
+                                            {{$bitacora->accion_descripcion}}
+                                        </span>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center p-1">
                                         {{$bitacora->tabla}}
                                     </td>
                                    
-                                    <td class="text-center">
+                                    <td class="text-center p-1">
                                         {{$bitacora->fecha_formateada}}
                                     </td>
-                                    <td>
+                                    <td class="text-center p-1">
                                         <a href="{{route('bitacoras.show',$bitacora)}} " class="btn btn-sm btn-info">
                                             <span>
                                                 <i class="fa fa-eye"></i>

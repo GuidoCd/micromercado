@@ -39,13 +39,13 @@
                                                     {{ $stock->producto }}
                                                </td>
                                                 <td class="text-justify p-1">
-                                                    {{ $stock->fecha_vencimiento }}
+                                                    {{ \Carbon\Carbon::parse($stock->fecha_vencimiento)->format('d/m/Y') }}
                                                 </td>
                                                 <td class="text-justify p-1">
                                                     {{ $stock->unidad }}
                                                 </td>
                                                 <td class="text-justify p-1">
-                                                    {{ $stock->total }}
+                                                    {{ number_format($stock->total,2,'.',',') }}
                                                 </td>
                                             </tr>
                                         @endforeach

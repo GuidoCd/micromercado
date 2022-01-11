@@ -42,10 +42,9 @@ class CategoriaController extends Controller
        $categoria=Categoria::create($inputs);
        $bitacora = Bitacora::create([
         'user_id' => auth()->user()->id,
-        'accion' => 2,
-        'tabla' => 'categorias',
-        'objeto' => 'AA',
-
+        'accion' => Bitacora::TIPO_CREO,
+        'tabla' => 'Producto | Categoria',
+        'objeto' => json_encode($categoria),
        ]);
        return redirect()->route('categorias.index')->with('success','categoria creada con exito');
     }
@@ -83,15 +82,13 @@ class CategoriaController extends Controller
     {
         $inputs=$request->all();
         $usuario=Categoria::find($inputs['categoria_id']);
-
         $usuario->update([
             'nombre' => $inputs['nombre']
-
         ]);
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 1,
-            'tabla' => 'categorias',
+            'accion' => Bitacora::TIPO_EDITO,
+            'tabla' => 'Producto | Categoria',
             'objeto' => 'AA',
     
            ]);

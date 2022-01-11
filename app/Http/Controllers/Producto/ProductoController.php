@@ -50,11 +50,10 @@ class ProductoController extends Controller
         $producto = Producto::create($inputs);
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 2,
-            'tabla' => 'productos',
-            'objeto' => 'AA',
-    
-           ]);
+            'accion' => Bitacora::TIPO_CREO,
+            'tabla' => 'Producto',
+            'objeto' => json_encode($producto),
+        ]);
         return redirect()->route('productos.index')->with('success','Producto Creado con éxito!');
     }
 
@@ -90,14 +89,14 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto){
         $inputs = $request->except(['codigo']);
+        $productoAnterior = Producto::find($producto->id);
         $producto->update($inputs);
         $bitacora = Bitacora::create([
             'user_id' => auth()->user()->id,
-            'accion' => 1,
-            'tabla' => 'productos',
-            'objeto' => 'AA',
-    
-           ]);
+            'accion' => Bitacora::TIPO_EDITO,
+            'tabla' => 'Productos',
+            'objeto' => json_encode($productoAnterior) . '__' . json_encode($producto),
+        ]);
         return redirect()->route('productos.index')->with('success','Producto Actualizado con éxito!');
     }
 

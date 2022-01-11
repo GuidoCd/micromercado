@@ -19,14 +19,20 @@ class Bitacora extends Model
         'objeto',
     ];
 
+    const TIPO_EDITO = 1;
+    const TIPO_CREO = 2;
+    const TIPO_ELIMINO_ANULO = 3;
+    const TIPO_INGRESO = 4;
+    const TIPO_SALIO = 5;
+
     public function getAccionColorAttribute(){
-        $colores = ['badge bg-success','badge bg-info','badge bg-danger'];
+        $colores = ['badge bg-success','badge bg-info','badge bg-danger','badge bg-info','badge bg-danger'];
         return $colores[$this->attributes['accion'] - 1];
 
     }
 
     public function getAccionDescripcionAttribute(){
-        $descripcion = ['EDITO','CREO','ELIMINO'];
+        $descripcion = ['EDITO','CREO','ELIMINO','INGRESO','SALIDA'];
 
         return $descripcion[$this->attributes['accion']-1];
 

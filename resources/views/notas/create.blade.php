@@ -65,6 +65,7 @@
             $('#preciod').val('');
             $('#unidadd').val('');
             $('#producto_idd').val('');
+            $('#fecha_vencimientod').val('');
         }
 
         function cargarDetalles(){
@@ -75,6 +76,7 @@
             
             var precio =  $('#preciod').val()
             var cantidad = $('#cantidadd').val();
+            var fecha_vencimiento = $('#fecha_vencimientod').val();
             var importe = cantidad * precio;
             totales.push(importe);       
             
@@ -82,6 +84,11 @@
                      fila +="<td>";
                          fila += item;
                          fila += "<input type='hidden' name='productos_id[]' value='"+datos[2]+"'>"
+                     fila +="</td>";
+
+                     fila +="<td>";
+                         fila += fecha_vencimiento;
+                         fila += "<input type='hidden' name='fechas_vencimiento[]' value='"+fecha_vencimiento+"'>"
                      fila +="</td>";
 
                      fila +="<td>";
