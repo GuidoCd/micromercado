@@ -2,7 +2,7 @@ Detalle de Compra
 <div class="card card-custom">
     <div class="card-header bg-secondary">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-10">
                 <label for="pproducto_id">Producto</label>
                 <select name="pproducto_id" id="pproducto_id" class="form-control form-control-sm" onchange="actualizarUnidad();">
                     <option value="">-</option>
@@ -11,9 +11,15 @@ Detalle de Compra
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <label for="unidad">Unidad</label>
                 <input type="text" name="unidad" id="unidad" class="form-control form-control-sm" readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="fecha_vencimientod">Fecha Vencimiento:</label>
+                <input type="date" name="fecha_vencimientod" id="fecha_vencimientod" class="form-control form-control-sm">
             </div>
             <div class="col-md-2">
                 <label for="pcantidad">Cantidad</label>

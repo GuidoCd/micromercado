@@ -1,15 +1,24 @@
 @extends('adminlte::page')
-
 @section('title', 'Micromercado | Nota Compra')
-
 @section('content')
     <div class="row">
             <div class="col-md-12">
                 <div class="card card-custom">
                     <div class="card-header bg-secondary">
                             <div class="card-title">Nota de Compra</div>
-                            <div class="pull-right">
-                                <a href="{{route('compras.index')}}" class="btn btn-sm btn-info float-right">
+                            <div class="float-right">
+                                @can('compras.concluir')
+                                    @if ($compra->estado == $compra::PENDIENTE)
+                                        <button type="button" class="btn btn-sm btn-success" onclick="concluir({{ $compra->id }})">
+                                            <span>
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            &nbsp;
+                                            Concluir
+                                        </button>
+                                    @endif
+                                @endcan
+                                <a href="{{route('compras.index')}}" class="btn btn-sm btn-info">
                                     <span>
                                         <i class="fa fa-reply"></i>
                                     </span>
@@ -24,7 +33,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label for="empleado">Empleado:</label>
-                                                    <input type="text" name="empleado" id="empleado" class="form-control form-control-sm" value="{{$usuario->name}}" readonly>
+                                                    <input type="text" name="empleado" id="empleado" class="form-control form-control-sm" value="{{ $usuario != null ? $usuario->name : '' }}" readonly>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="monto">Monto:</label>
@@ -58,6 +67,7 @@
                                 <thead>
                                     <tr>
                                         <th>Item</th>
+                                        <th>Fecha Vencimiento</th>
                                         <th>Cantidad</th>
                                         <th>Precio</th>
                                         <th>Importe</th>
@@ -72,6 +82,9 @@
                                                             {{$producto->nombre}}
                                                         @endif
                                                     @endforeach
+                                                </td>
+                                                <td>
+                                                    {{ \Carbon\Carbon::parse($detalle->fecha_vencimiento)->format('d/m/Y') }}
                                                 </td>
                                                 <td>
                                                     {{$detalle->cantidad}}

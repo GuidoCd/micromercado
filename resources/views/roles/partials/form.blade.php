@@ -9,17 +9,18 @@
         <div class="col-md-12">
                 <div class="card">
                         <div class="card-body">
-                                 @foreach($permisos as $permiso)
-                                        <div class="row">
-                                                <div class="col-md-12">
-                                                        <label for="permiso_id">
-                                                                <input type="checkbox" {{$permiso->checked == 1 ?'checked' : ''}}  name="permissions[]" value="{{$permiso->name}}">
-                                                                {{$permiso->description}}
-                                                        </label>
+                                <div style="height:400px;overflow-y: scroll;" class="col-md-12">
+                                        @foreach($permisos as $permiso)
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                                <label for="permiso_id">
+                                                                        <input type="checkbox" {{$permiso->checked == 1 ?'checked' : ''}}  name="permissions[]" value="{{$permiso->name}}">
+                                                                        {{$permiso->description}}
+                                                                </label>
+                                                        </div>
                                                 </div>
-                                        </div>
-
-                                 @endforeach
+                                        @endforeach
+                                </div>
                         </div>
                 </div>
         </div>

@@ -60,6 +60,7 @@
             $("#pcantidad").val("");
             $("#pprecio").val("");
             $("#unidad").val("");
+            $('#fecha_vencimientod').val('');
         }
 
         function agregarDetalle(){
@@ -72,6 +73,7 @@
             var datosProducto = pproducto_id.split('_');
             var pprecio = $("#pprecio").val();
             var pcantidad = $("#pcantidad").val();
+            var fecha_vencimiento = $('#fecha_vencimientod').val();
             var fila = "";
             fila += "<tr class='fila-detalle-" + index + "'>";
                 fila += "<td>"
@@ -82,6 +84,11 @@
                 fila += "<td>"
                     fila += datosProducto[1]
                 fila += "</td>"
+
+                fila +="<td>";
+                    fila += fecha_vencimiento;
+                    fila += "<input type='hidden' name='fechas_vencimiento[]' value='"+fecha_vencimiento+"'>"
+                fila +="</td>";
 
                 fila += "<td>"
                     fila += pcantidad

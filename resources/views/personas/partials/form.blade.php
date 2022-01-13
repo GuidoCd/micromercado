@@ -5,7 +5,7 @@
         </label>
         <select name="tipo" id="tipo" class="form-control form-control-sm" onchange="verificarCampo(this);">
                 @if(isset($persona))
-                    @if($persona->tipo=="1" || Input::old('tipo') == 1)
+                    @if($persona->tipo=="1" || old('tipo') == 1)
                         <option value="1" selected>EMPLEADO</option>
                         <option value="2">CLIENTE</option>  
                      @else

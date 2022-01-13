@@ -67,8 +67,10 @@
                                                         <td>
                                                             {{$venta->monto_total}}
                                                         </td>
-                                                        <td class="text-center p-1 {{ $venta->estado_color}}">
-                                                            {{$venta->estado_descripcion}}
+                                                        <td class="text-center p-1 ">
+                                                            <span class="{{ $venta->estado_color }}">
+                                                                {{$venta->estado_descripcion}}
+                                                            </span>
                                                         </td>
                                                         <td>
                                                              <a href="{{route('ventas.edit',$venta)}}" class="btn btn-sm btn-success">

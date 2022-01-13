@@ -25,7 +25,7 @@ class NotaCompra extends Model
 
     const ANULADA = 1;
     const PENDIENTE = 2;
-    const APROBADA = 3;
+    const CONCLUIDA = 3;
 
     public function proveedor(){
         return $this->hasOne(Proveedor::class,'id','proveedor_id');
@@ -36,7 +36,7 @@ class NotaCompra extends Model
     }
 
     public function getEstadoDescripcionAttribute(){
-        $estados=['ANULADA','PENDIENTE','APROBADA'];
+        $estados=['ANULADA','PENDIENTE','CONCLUIDA'];
         return $estados[$this->attributes['estado'] -1];
     }
 

@@ -17,6 +17,7 @@ class NotaCompraDetalle extends Model
         'cantidad',
         'sub_total',
         'producto_id',
+        'fecha_vencimiento',
         'nota_compras_id',
     ];
 

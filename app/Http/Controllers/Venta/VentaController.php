@@ -10,7 +10,8 @@ use App\Models\Producto\Producto;
 use App\Models\Auxiliar\Auxiliar;
 use App\Models\Venta\DetalleVenta;
 use App\Models\Bitacora\Bitacora;
-
+use App\Models\Movimiento\Movimiento;
+use DB;
 class VentaController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class VentaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $ventas =  Venta::get();
+        $ventas =  Venta::orderBy('id','DESC')->get();
         $clientes= Auxiliar::get();
         return view('ventas.index',compact('ventas','clientes'));
     }
@@ -30,11 +31,24 @@ class VentaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $clientes=Persona::where('tipo','2')->get();
-        $productos=Producto::get();
-        $auxiliares=Auxiliar::get();
+        $clientes = Persona::where('tipo',Persona::CLIENTE)->get();
+        $productos = Movimiento::where('padre_id',null)
+                        ->select(
+                            'producto_id',DB::raw('SUM(saldo) as total'),'fecha_vencimiento','precio_movimiento as precio'
+                        )
+                        ->where('estado',Movimiento::ESTADO_REALIZADO)
+                        ->groupBy('producto_id')
+                        ->groupBy('precio_movimiento')
+                        ->groupBy('fecha_vencimiento')
+                        ->get();
+        foreach ($productos as $stock) {
+            $producto = Producto::find($stock->producto_id);
+            $stock->codigo = $producto->codigo;
+            $stock->nombre = $producto->nombre;
+            $stock->unidad = $producto->unidad != null ? $producto->unidad->abreviacion : '';
+        }
+        $auxiliares = Auxiliar::get();
         return view('ventas.create',compact('clientes','productos','auxiliares'));
-        
     }
 
     /**

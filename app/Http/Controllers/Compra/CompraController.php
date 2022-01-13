@@ -29,9 +29,9 @@ class CompraController extends Controller
 
     //guardado del formulario
     public function store(Request $request){
-        
         $inputs = $request->all();
         $cantidades = $inputs['cantidades'];
+        $fechas_vencimiento = $inputs['fechas_vencimiento'];
         $productos = $inputs['productos_id'];
         $precios = $inputs['precios'];
         $codigo = $this->generarCodigo();
@@ -44,7 +44,6 @@ class CompraController extends Controller
             'concepto' => $inputs['concepto'],
         ]);
             for($i = 0 ;$i < count($productos) ; $i++){
-                
                 $precio = $precios[$i];
                 $cantidad = $cantidades[$i];
                 $sub_total = $precios[$i] * $cantidades[$i];
@@ -54,8 +53,8 @@ class CompraController extends Controller
                     'cantidad' => $cantidad,
                     'sub_total' => $sub_total,
                     'producto_id' => $productos[$i],
+                    'fecha_vencimiento' => $fechas_vencimiento[$i],
                     'nota_compras_id' => $compra->id,
-
                 ]);
             
 
@@ -84,10 +83,8 @@ class CompraController extends Controller
     public function show(NotaCompra $compra){
         $detalles = NotaCompraDetalle::where('nota_compras_id',$compra->id)->get();
         $proveedor = Proveedor::where('id',$compra->proveedor_id)->first();
-        $usuario = User::where('id',$compra->user_id)->first();
+        $usuario = User::find($compra->user_id);
         $productos = Producto::get();
-
-
        return view('compras.show',compact('compra','detalles','proveedor','usuario','productos'));
     }
 

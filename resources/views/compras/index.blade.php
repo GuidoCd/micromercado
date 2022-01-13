@@ -60,8 +60,10 @@
                                     <td class="text-justify p-1">
                                         {{ $compra->proveedor != null ? $compra->proveedor->nombre : 'N/A' }}
                                     </td>
-                                    <td class="text-center p-1 {{ $compra->estado_color }}">
-                                        {{ $compra->estado_descripcion }}
+                                    <td class="text-center p-1">
+                                        <span class="{{ $compra->estado_color }}">
+                                            {{ $compra->estado_descripcion }}
+                                        </span>
                                     </td>
                                     <td class="text-center p-1">
                                         <a href="{{ route('compras.show',$compra->id) }}" class="btn btn-sm btn-info">

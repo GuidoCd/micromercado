@@ -2,39 +2,31 @@
     <div class="card card-custom">
         <div class="card-header bg-secondary">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-12">
                         <label for="nombred"> Producto:</label>
 
                         <select name="nombred" id="nombred"class="form-control form-control-sm" onchange="cambiarDatos()">
                             <option value="">-</option>
                                 @foreach ($productos as $producto)
-                                    <option value="{{$producto->id}}_{{$producto->nombre}}_{{$producto->precio}}_{{$producto->codigo}}">
-                                    {{$producto->nombre}}</option>
+                                    <option value="{{ $producto->producto_id }}_{{ $producto->nombre }}_{{ $producto->precio }}_{{ $producto->codigo }}_{{ $producto->total }}">
+                                    {{ $producto->codigo . ' -  ' . $producto->nombre . ' - v ' . \Carbon\Carbon::parse($producto->fecha_vencimiento)->format('d/m/Y')}}</option>
                                 @endforeach
                         </select>
-                        
-                        
                 </div>
-                <div class="col-md-6">
-                        <label for="codigod">Codigo: </label>
-                         <input type="text" name="codigod" id="codigod" class="form-control form-control-sm" >
-    
-
-                </div>
-                <div class="col-md-2">
-                    <label for="preciod">Precio: </label>
-                    <input type="text" name="preciod" id="preciod" class="form-control form-control-sm" >
-                    
-                </div>
-                <div class="col-md-2">
-                    <label for="cantidadd">Cantidad: </label> 
-                    <input type="text" name="cantidadd" id="cantidadd" class="form-control form-control-sm">
-                   
-                </div>
-               
-               
-                
-                
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="saldo">Saldo: </label>
+                <input type="text" name="saldo" id="saldo" class="form-control form-control-sm" readonly>
+            </div>
+            <div class="col-md-2">
+                <label for="preciod">Precio: </label>
+                <input type="text" name="preciod" id="preciod" class="form-control form-control-sm" >
+            </div>
+            <div class="col-md-2">
+                <label for="cantidadd">Cantidad: </label> 
+                <input type="text" name="cantidadd" id="cantidadd" class="form-control form-control-sm">
+            </div>
         </div>
         <div class="row mt-2">
             <div class="col-md-12 text-right">

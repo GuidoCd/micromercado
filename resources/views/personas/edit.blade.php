@@ -58,7 +58,20 @@
 
 @section('js')
     <script>
+        function toggleInputs(value){
+            if (value == "2") {
+                $(".email-view").hide();
+                $(".auxiliar-view").show();
+            }else{
+                $(".auxiliar-view").hide();
+                $(".email-view").show();
+            }
+        }
+
         function verificarCampo(input){
+            if(input.id == 'tipo'){
+                toggleInputs(input.value);
+            }
             if(input.value == ""){
                 $("#" + input.id).removeClass("is-valid");
                 $("#" + input.id).addClass("is-invalid");

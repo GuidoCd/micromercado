@@ -61,17 +61,16 @@
         }
         function limpiarInputs(){
             $('#nombred').val('');
-            $('#codigod').val('');
             $('#preciod').val('');
             $('#cantidadd').val('');
-           
+            $('#saldo').val('');
         }
         function cambiarDatos(){
-            var valor=$('#nombred').val();
-            var datos=valor.split('_')
-            var codigo=datos[3];
-            var precio=datos[2];
-            $('#codigod').val(codigo);
+            var valor = $('#nombred').val();
+            var datos = valor.split('_')
+            var saldo = datos[4];
+            var precio = datos[2];
+            $('#saldo').val(saldo);
             $('#preciod').val(precio);
 
         }
