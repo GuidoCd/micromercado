@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('notas')->name('notas.')->middleware(['auth'])->group(function(){
     Route::get('/',[NotaController::class,'index'])->name('index')->middleware('can:notas.index');
+    Route::get('/search',[NotaController::class,'search'])->name('search')->middleware('can:notas.index');
+    Route::get('/excel/{tipo_movimiento}/{codigo}/{estado}',[NotaController::class,'excel'])->name('excel')->middleware('can:notas.excel');
     Route::get('/create',[NotaController::class,'create'])->name('create')->middleware('can:notas.create');
     Route::post('/store',[NotaController::class,'store'])->name('store')->middleware('can:notas.create');
     Route::get('/edit/{nota}',[NotaController::class,'edit'])->name('edit')->middleware('can:notas.edit');

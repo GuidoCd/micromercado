@@ -10,7 +10,7 @@
                             Opciones de Busqueda
                         </div>
                         <div class="card-body">
-
+                            @include('notas.partials.search')
                         </div>
                 </div>
         </div>
@@ -130,7 +130,28 @@
 
 @section('js')
     <script>
-
+function exportarExcel(){
+                var tipo_movimiento = $("#tipo_movimiento").val();
+                var codigo = $("#codigo").val();
+                var estado = $("#estado").val();
+                if(tipo_movimiento == ""){
+                    tipo_movimiento = -1;
+                }
+                if(codigo == ""){ 
+                    codigo = -1;
+                }
+                if(estado == ""){ 
+                    estado = -1;
+                }
+                var url = '{{ route("notas.excel", [":tipo_movimiento",":codigo",":estado"]) }}';
+                url = url.replace(':tipo_movimiento', tipo_movimiento);
+                url = url.replace(':codigo', codigo);
+                url = url.replace(':estado', estado);
+                console.log([
+                    tipo_movimiento, codigo, estado,url
+                ]);
+                window.location.href=url; 
+            }
        
         function verificarCampo(input){
             if(input.value == ""){

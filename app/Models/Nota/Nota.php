@@ -2,9 +2,11 @@
 
 namespace App\Models\Nota;
 
+use App\Models\Persona\Persona;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\User;
 
 class Nota extends Model
 {
@@ -27,6 +29,31 @@ class Nota extends Model
     const PENDIENTE = 1;
     const CONCLUIDA = 2;
     const ANULADA = 3;
+
+    public function user(){
+        return $this->hasOne(User::class,'id','empleado_id');
+    }
+
+    public function scopeByCodigo($query, $codigo)
+    {
+        if ($codigo) {
+            return $query->where('codigo', $codigo);
+        }
+    }
+
+    public function scopeByTipoMovimiento($query, $tipo_movimiento)
+    {
+        if ($tipo_movimiento) {
+            return $query->where('tipo_movimiento', $tipo_movimiento);
+        }
+    }
+
+    public function scopeByEstado($query, $estado)
+    {
+        if ($estado) {
+            return $query->where('estado', $estado);
+        }
+    }
 
     public function getFechaFormateadaAttribute(){
         return Carbon::parse($this->attributes['created_at'])->format('d/m/Y');

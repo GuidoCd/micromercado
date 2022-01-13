@@ -38,6 +38,24 @@ class Movimiento extends Model
             return $query->where('producto_id', $producto_id);
         }
     }
+
+    public function scopeByFechaVencimiento($query, $fecha_vencimiento)
+    {
+        if ($fecha_vencimiento) {
+            return $query->where('fecha_vencimiento','<=', $fecha_vencimiento);
+        }
+    }
+
+    public function scopeByStock($query, $con_stock)
+    {
+        if ($con_stock) {
+            if($con_stock == "1"){
+                return $query->where('saldo','>', '0');
+            }else{
+                return $query->where('saldo','=', '0');
+            }
+        }
+    }
     /* Atributos Personalizados */
 
 

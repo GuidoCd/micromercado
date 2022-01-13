@@ -59,5 +59,24 @@
 @stop
 @section('js')
     <script>
+            function exportarExcel(){
+                var producto_id = $("#producto_id").val();
+                var fecha_vencimiento = $("#fecha_vencimiento").val();
+                var con_stock = $("#con_stock").val();
+                if(producto_id == ""){
+                    producto_id = -1;
+                }
+                if(fecha_vencimiento == ""){ 
+                    fecha_vencimiento = -1;
+                }
+                if(con_stock == ""){ 
+                    con_stock = -1;
+                }
+                var url = '{{ route("stocks.excel", [":producto_id",":fecha_vencimiento",":con_stock"]) }}';
+                url = url.replace(':producto_id', producto_id);
+                url = url.replace(':fecha_vencimiento', fecha_vencimiento);
+                url = url.replace(':con_stock', con_stock);
+                window.location.href=url; 
+            }
     </script>
 @stop

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Nota;
 
 use App\Exceptions\ValidationException;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Nota\NotaExport;
 use Illuminate\Http\Request;
 use App\Models\Nota\Nota;
 use App\Models\User;
@@ -28,6 +30,16 @@ class NotaController extends Controller
         $notas = Nota::orderBy('id','DESC')->paginate(20);
         $usuarios = User::get();
         return view('notas.index',compact('notas','usuarios'));
+    }
+
+    public function search(Request $request){
+        $notas = Nota::byCodigo($request->codigo)->byTipoMovimiento($request->tipo_movimiento)->byEstado($request->estado)->orderBy('id','DESC')->paginate(20);
+        $usuarios = User::get();
+        return view('notas.index',compact('notas','usuarios'));
+    }
+
+    public function excel($tipo_movimiento,$codigo,$estado){
+        return Excel::download(new NotaExport($tipo_movimiento, $codigo, $estado),'Listado de Notas de Movimiento.xlsx');
     }
 
     /**
@@ -140,6 +152,7 @@ class NotaController extends Controller
 
     public function concluir(Nota $nota){
         try {
+            $notaAnterior = Nota::find($nota->id);
             if($nota->estado != Nota::PENDIENTE){
                 throw new ValidationException('Acción no autorizada!');
             }
@@ -155,6 +168,12 @@ class NotaController extends Controller
                     'estado' => Nota::CONCLUIDA
                 ]);
             }
+            $bitacora = Bitacora::create([
+                'user_id' => auth()->user()->id,
+                'accion' => Bitacora::TIPO_EDITO,
+                'tabla' => 'Producto | Notas de Movimiento',
+                'objeto' => json_encode($notaAnterior) . '__' . json_encode($nota),
+               ]);
             return redirect()->back()->with('success','Nota Concluida con éxito!');
         } catch (ValidationException $th) {
             return redirect()->back()->with('error',$th->getMessage());
